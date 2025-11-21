@@ -3,7 +3,11 @@ module com.example.erronka4taldea {
     requires javafx.fxml;
     requires java.sql;
 
+    opens Main to javafx.fxml;
+    opens kontrola to javafx.fxml;
+    opens Util to javafx.fxml;
 
-    opens com.example.erronka4taldea to javafx.fxml;
-    exports com.example.erronka4taldea;
+    exports Main;
+    exports kontrola;
+    exports Util;
 }

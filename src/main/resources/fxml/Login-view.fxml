@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+
+<Pane prefHeight="450.0" prefWidth="600.0"
+      style="-fx-background-color: linear-gradient(to bottom, #3F7AE0, #2C5AA0);"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="kontrola.LoginManager">
+
+    <children>
+
+        <!-- Cuadro blanco centrado -->
+        <VBox alignment="CENTER" spacing="20"
+              layoutX="175" layoutY="100"
+              prefWidth="250"
+              style="-fx-background-color: #ffffff;
+                     -fx-background-radius: 15;
+                     -fx-border-radius: 15;
+                     -fx-padding: 25;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10,0,0,0);">
+
+            <children>
+
+                <!-- Título -->
+                <Label text="JAUS" style="-fx-text-fill: #3F7AE0; -fx-font-weight: bold;">
+                    <font>
+                        <Font size="28" />
+                    </font>
+                </Label>
+
+                <!-- Usuario -->
+                <TextField fx:id="txtErabiltzailea"
+                           promptText="Erabiltzailea"
+                           prefWidth="220"
+                           style="-fx-background-radius: 5;
+                                  -fx-border-radius: 5;
+                                  -fx-border-color: #cccccc;" />
+
+                <!-- Contraseña -->
+                <PasswordField fx:id="txtPasahitza"
+                               promptText="Pasahitza"
+                               prefWidth="220"
+                               style="-fx-background-radius: 5;
+                                      -fx-border-radius: 5;
+                                      -fx-border-color: #cccccc;" />
+
+                <!-- Botón -->
+                <Button fx:id="btnSaioaHasi"
+                        text="Saioa Hasi"
+                        prefWidth="150"
+                        onAction="#saioaHasi"
+                        style="-fx-background-color: #3F7AE0;
+               -fx-text-fill: white;
+               -fx-background-radius: 5;
+               -fx-padding: 8 20;" />
+
+
+            </children>
+
+        </VBox>
+
+    </children>
+
+</Pane>
