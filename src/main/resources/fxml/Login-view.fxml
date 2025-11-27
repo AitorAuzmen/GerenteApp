@@ -9,7 +9,7 @@
       style="-fx-background-color: linear-gradient(to bottom, #3F7AE0, #2C5AA0);"
       xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="kontrola.LoginManager">
+      fx:controller="kontrola.LoginController">
 
     <children>
 
@@ -54,10 +54,9 @@
                         prefWidth="150"
                         onAction="#saioaHasi"
                         style="-fx-background-color: #3F7AE0;
-               -fx-text-fill: white;
-               -fx-background-radius: 5;
-               -fx-padding: 8 20;" />
-
+                               -fx-text-fill: white;
+                               -fx-background-radius: 5;
+                               -fx-padding: 8 20;" />
 
             </children>
 

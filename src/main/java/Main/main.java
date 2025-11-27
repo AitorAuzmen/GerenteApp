@@ -1,3 +1,4 @@
+
 package Main;
 
 import javafx.application.Application;
@@ -18,7 +19,8 @@ public class main extends Application {
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
-}}
+        }
+    }
 
     public static void main(String[] args) {
         launch(args);

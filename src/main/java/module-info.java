@@ -10,4 +10,6 @@ module com.example.erronka4taldea {
     exports Main;
     exports kontrola;
     exports Util;
+    exports DatuBasea;
+    opens DatuBasea to javafx.fxml;
 }
