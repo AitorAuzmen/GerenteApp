@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import model.User;
+import model.Erabiltzailea;
 
 public class LoginController {
     @FXML
@@ -28,7 +28,7 @@ public class LoginController {
             return;
         }
 
-        User user = new User(erabiltzailea, pasahitza);
+        Erabiltzailea user = new Erabiltzailea(erabiltzailea, pasahitza);
         LoginManager loginManager = new LoginManager();
 
         if (loginManager.login(user)) {
