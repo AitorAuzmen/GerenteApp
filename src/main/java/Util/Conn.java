@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conn {
-    private static final String URL = "jdbc:mysql://192.168.115.161:3306/tpv_?useSSL=false&serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://192.168.115.161:3306/tpv?useSSL=false&serverTimezone=UTC";
     private static final String USER = "admin";
     private static final String PASSWORD = "Taldea4";
 
