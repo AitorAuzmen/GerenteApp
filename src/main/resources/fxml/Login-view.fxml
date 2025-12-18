@@ -6,14 +6,14 @@
 <?import javafx.geometry.Insets?>
 
 <Pane prefHeight="450.0" prefWidth="600.0"
-      style="-fx-background-color: linear-gradient(to bottom, #3F7AE0, #2C5AA0);"
+      style="-fx-background-color: #E67E22;"
       xmlns="http://javafx.com/javafx/25"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="kontrola.LoginController">
 
     <children>
 
-        <!-- Cuadro blanco centrado -->
+
         <VBox alignment="CENTER" spacing="20"
               layoutX="175" layoutY="100"
               prefWidth="250"
@@ -25,14 +25,14 @@
 
             <children>
 
-                <!-- Título -->
+
                 <Label text="JAUS" style="-fx-text-fill: #3F7AE0; -fx-font-weight: bold;">
                     <font>
                         <Font size="28" />
                     </font>
                 </Label>
 
-                <!-- Usuario -->
+
                 <TextField fx:id="txtErabiltzailea"
                            promptText="Erabiltzailea"
                            prefWidth="220"
@@ -40,7 +40,7 @@
                                   -fx-border-radius: 5;
                                   -fx-border-color: #cccccc;" />
 
-                <!-- Contraseña -->
+
                 <PasswordField fx:id="txtPasahitza"
                                promptText="Pasahitza"
                                prefWidth="220"
@@ -48,12 +48,12 @@
                                       -fx-border-radius: 5;
                                       -fx-border-color: #cccccc;" />
 
-                <!-- Botón -->
+
                 <Button fx:id="btnSaioaHasi"
                         text="Saioa Hasi"
                         prefWidth="150"
                         onAction="#saioaHasi"
-                        style="-fx-background-color: #3F7AE0;
+                        style="-fx-background-color: #E67E22;
                                -fx-text-fill: white;
                                -fx-background-radius: 5;
                                -fx-padding: 8 20;" />

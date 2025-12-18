@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="kontrola.ErabiltzaileakController"
+            prefWidth="900"
+            prefHeight="500">
+
+
+    <top>
+        <ToolBar fx:id="toolbar">
+            <Label text="Bilatu:"/>
+            <TextField fx:id="txtBuscar" promptText="Erabiltzailea edo emaila"/>
+
+            <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituErabiltzailea"/>
+            <Button fx:id="btnEdit" text="Editatu" onAction="#editatuErabiltzailea"/>
+            <Button fx:id="btnDelete" text="Ezabatu" onAction="#ezabatuErabiltzailea"/>
+
+            <Separator orientation="VERTICAL"/>
+
+            <Label text="Filtratu:"/>
+            <ComboBox fx:id="cmbFiltro" prefWidth="130"/>
+        </ToolBar>
+    </top>
+
+
+    <center>
+        <TableView fx:id="erabiltzaileTable">
+            <columns>
+                <TableColumn fx:id="colErabiltzailea" text="Erabiltzailea" prefWidth="150"/>
+                <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+                <TableColumn fx:id="colPasahitza" text="Pasahitza" prefWidth="150"/>
+                <TableColumn fx:id="colRola" text="Rola" prefWidth="100"/>
+                <TableColumn fx:id="colEzabatua" text="Ezabatua" prefWidth="100"/>
+                <TableColumn fx:id="colChat" text="Chat" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

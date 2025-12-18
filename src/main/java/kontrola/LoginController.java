@@ -51,15 +51,28 @@ public class LoginController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LehioNagusia.fxml"));
             Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+
+            scene.getStylesheets().add(getClass().getResource("/css/estilo.css").toExternalForm());
+
             Stage stage = new Stage();
             stage.setTitle("JAUS - Leiho Nagusia");
-            stage.setScene(new Scene(root, 800, 600));
+            stage.setScene(scene);
+
+
+            stage.setMaximized(true);
+
             stage.show();
+
 
             Stage loginStage = (Stage) txtErabiltzailea.getScene().getWindow();
             loginStage.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }
