@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
-
 import java.util.Objects;
 
 public class LehioNagusiaController {
@@ -27,6 +26,10 @@ public class LehioNagusiaController {
         cargarVista("/fxml/erabiltzaileak.fxml", "Erabiltzaileak");
     }
 
+    @FXML
+    private void kargatuKategoriak() {
+        cargarVista("/fxml/kategoriak.fxml", "Kategoriak");
+    }
 
     private void cargarVista(String rutaFXML, String nombreVista) {
         System.out.println("Pantalla de " + nombreVista + "...");
@@ -38,7 +41,7 @@ public class LehioNagusiaController {
 
             Parent pane = loader.load();
 
-
+            // Aplica estilos si quieres
             pane.getStylesheets().add(
                     Objects.requireNonNull(getClass().getResource("/css/estilo.css")).toExternalForm()
             );
@@ -49,5 +52,5 @@ public class LehioNagusiaController {
             System.out.println("ERROR cargando " + rutaFXML);
             e.printStackTrace();
         }
-    }}
-
+    }
+}

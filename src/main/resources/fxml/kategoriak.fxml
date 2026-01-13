@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="kontrola.KategoriakController"
+            prefWidth="900"
+            prefHeight="500">
+
+    <!-- Barra superior con buscador y botones -->
+    <top>
+        <ToolBar fx:id="toolbar">
+            <Label text="Bilatu:"/>
+            <TextField fx:id="txtBilatu" promptText="Kategoria"/>
+
+            <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituKategoria"/>
+            <Button fx:id="btnEdit" text="Editatu" onAction="#editatuKategoria"/>
+            <Button fx:id="btnDelete" text="Ezabatu" onAction="#ezabatuKategoria"/>
+
+            <Separator orientation="VERTICAL"/>
+
+            <Label text="Filtratu:"/>
+            <ComboBox fx:id="cmbFiltro" prefWidth="130"/>
+        </ToolBar>
+    </top>
+
+    <!-- Tabla de categorías en el centro -->
+    <center>
+        <TableView fx:id="kategoriakTable">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="100"/>
+                <TableColumn fx:id="colIzena" text="Izena" prefWidth="300"/>
+            </columns>
+        </TableView>
+    </center>
+
+</BorderPane>

@@ -1,87 +1,99 @@
 package DatuBasea;
 
-import Util.Conn;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import model.Produktuak;
+import Util.Conn;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProduktuakDB {
 
-    public static ObservableList<Produktuak> lortuGuztiak() {
-        ObservableList<Produktuak> lista = FXCollections.observableArrayList();
-        String sql = "SELECT id, izena, kategoria_id, prezioa, stock_aktuala FROM produktuak";
+    public static List<Produktuak> lortuProduktuak() {
+        List<Produktuak> lista = new ArrayList<>();
+        String sql = "SELECT * FROM produktuak";
 
         try (Connection conn = Conn.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql);
-             ResultSet rs = pst.executeQuery()) {
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
-                Produktuak p = new Produktuak();
-                p.setId(rs.getInt("id"));
-                p.setIzena(rs.getString("izena"));
-                p.setKategoria_id(rs.getInt("kategoria_id"));
-                p.setPrezioa(rs.getDouble("prezioa"));
-                p.setStock_aktuala(rs.getInt("stock_aktuala"));
-
-                lista.add(p);
+                lista.add(new Produktuak(
+                        rs.getInt("id"),
+                        rs.getString("izena"),
+                        rs.getInt("kategoria_id"),
+                        rs.getDouble("prezioa"),
+                        rs.getInt("stock_aktuala")
+                ));
             }
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return lista;
     }
 
-    public static boolean insert(Produktuak p) {
+    // --- Método actualizado para devolver ID generado ---
+    public static int gehituProduktua(Produktuak p) {
         String sql = "INSERT INTO produktuak (izena, kategoria_id, prezioa, stock_aktuala) VALUES (?, ?, ?, ?)";
+
         try (Connection conn = Conn.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            pst.setString(1, p.getIzena());
-            pst.setInt(2, p.getKategoria_id());
-            pst.setDouble(3, p.getPrezioa());
-            pst.setInt(4, p.getStock_aktuala());
+            ps.setString(1, p.getIzena());
+            ps.setInt(2, p.getKategoriaId());
+            ps.setDouble(3, p.getPrezioa());
+            ps.setInt(4, p.getStockAktuala());
 
-            return pst.executeUpdate() == 1;
-        } catch (Exception e) {
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("No se pudo insertar el producto, no se afectaron filas.");
+            }
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int idGenerado = rs.getInt(1);
+                    p.setId(idGenerado); // Asignar ID al objeto
+                    return idGenerado;   // Devolver ID
+                } else {
+                    throw new SQLException("No se pudo obtener el ID del producto insertado.");
+                }
+            }
+
+        } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
-    public static boolean update(Produktuak p) {
-        String sql = "UPDATE produktuak SET izena = ?, kategoria_id = ?, prezioa = ?, stock_aktuala = ? WHERE id = ?";
+    public static void eguneratuProduktua(Produktuak p) {
+        String sql = "UPDATE produktuak SET izena=?, kategoria_id=?, prezioa=?, stock_aktuala=? WHERE id=?";
+
         try (Connection conn = Conn.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            pst.setString(1, p.getIzena());
-            pst.setInt(2, p.getKategoria_id());
-            pst.setDouble(3, p.getPrezioa());
-            pst.setInt(4, p.getStock_aktuala());
-            pst.setInt(5, p.getId());
+            ps.setString(1, p.getIzena());
+            ps.setInt(2, p.getKategoriaId());
+            ps.setDouble(3, p.getPrezioa());
+            ps.setInt(4, p.getStockAktuala());
+            ps.setInt(5, p.getId());
+            ps.executeUpdate();
 
-            return pst.executeUpdate() == 1;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
-    public static boolean delete(int id) {
-        String sql = "DELETE FROM produktuak WHERE id = ?";
-        try (Connection conn = Conn.getConnection();
-             PreparedStatement pst = conn.prepareStatement(sql)) {
+    public static void ezabatuProduktua(int id) {
+        String sql = "DELETE FROM produktuak WHERE id=?";
 
-            pst.setInt(1, id);
-            return pst.executeUpdate() == 1;
-        } catch (Exception e) {
+        try (Connection conn = Conn.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 }

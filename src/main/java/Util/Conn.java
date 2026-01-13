@@ -5,14 +5,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conn {
-    private static final String URL = "jdbc:mysql://192.168.2.100:3306/tpv?useSSL=false&serverTimezone=UTC";
-    private static final String USER = "admin";
-    private static final String PASSWORD = "Taldea4";
+    //private static final String URL = "jdbc:mysql://192.168.2.100:3306/tpv?useSSL=false&serverTimezone=UTC";
+   // private static final String USER = "admin";
+   // private static final String PASSWORD = "Taldea4";
 
-    //private static final String URL =
-          //  "jdbc:mysql://localhost:3306/tpv?useSSL=false&serverTimezone=UTC";
-    //private static final String USER = "root";
-    //private static final String PASSWORD = "1MG2024";
+    private static final String URL =
+           "jdbc:mysql://localhost:3306/tpv?useSSL=false&serverTimezone=UTC";
+    private static final String USER = "root";
+    private static final String PASSWORD = "1MG2024";
 
     static {
         try {

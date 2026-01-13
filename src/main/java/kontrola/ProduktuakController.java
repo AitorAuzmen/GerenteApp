@@ -1,140 +1,126 @@
 package kontrola;
 
+import DatuBasea.KategoriakDB;
 import DatuBasea.ProduktuakDB;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import model.Produktuak;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import model.Produktuak;
+
+import java.util.Map;
 
 public class ProduktuakController {
 
-    @FXML private TableView<Produktuak> tableView;
-    @FXML private TableColumn<Produktuak, Integer> colId;
+    @FXML private TableView<Produktuak> produktuTable;
     @FXML private TableColumn<Produktuak, String> colIzena;
     @FXML private TableColumn<Produktuak, Integer> colKategoria;
     @FXML private TableColumn<Produktuak, Double> colPrezioa;
     @FXML private TableColumn<Produktuak, Integer> colStock;
 
-    @FXML private Button btnAdd;
-    @FXML private Button btnEdit;
-    @FXML private Button btnDelete;
+    @FXML private TextField txtBilatu;
+    @FXML private ComboBox<String> cmbKategoriak;
+
+    private ObservableList<Produktuak> produktuak;
+    private FilteredList<Produktuak> filtratua;
+
+    // NUEVO: mapa id -> nombre de categoría
+    private Map<Integer, String> kategoriakMapa;
 
     @FXML
     public void initialize() {
 
-        colId.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("id"));
-        colIzena.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("izena"));
-        colKategoria.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("kategoria_id"));
-        colPrezioa.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("prezioa"));
-        colStock.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("stock_aktuala"));
+        colIzena.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getIzena()));
+        colKategoria.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getKategoriaId()));
+        colPrezioa.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getPrezioa()));
+        colStock.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getStockAktuala()));
 
+        produktuak = FXCollections.observableArrayList(ProduktuakDB.lortuProduktuak());
+        filtratua = new FilteredList<>(produktuak, p -> true);
+        produktuTable.setItems(filtratua);
 
-        kargatuDatuak();
+        // NUEVO: inicializamos mapa y ComboBox con nombres
+        kategoriakMapa = KategoriakDB.lortuKategoriakMap();
+        cmbKategoriak.getItems().setAll(kategoriakMapa.values());
 
-
-        btnAdd.setOnAction(e -> openAddDialog());
-        btnEdit.setOnAction(e -> openEditDialog());
-        btnDelete.setOnAction(e -> deleteSelected());
+        txtBilatu.textProperty().addListener((obs, old, val) -> aplikatuFiltro());
+        cmbKategoriak.valueProperty().addListener((obs, old, val) -> aplikatuFiltro());
     }
 
-    private void kargatuDatuak() {
-        ObservableList<Produktuak> items = ProduktuakDB.lortuGuztiak();
-        tableView.setItems(items);
-    }
+    // FILTRO CORREGIDO
+    private void aplikatuFiltro() {
+        String testua = txtBilatu.getText().toLowerCase();
+        String kategoriaIzena = cmbKategoriak.getValue();
 
-    private void openAddDialog() {
-        Produktuak p = editDialog(null);
-        if (p != null) {
-            boolean ok = ProduktuakDB.insert(p);
-            if (ok) kargatuDatuak();
-            else alerta("Errorea", "Ezin izan da produktua gehitu");
-        }
-    }
+        filtratua.setPredicate(p -> {
+            boolean testuaOndo = testua.isEmpty() || p.getIzena().toLowerCase().contains(testua);
+            boolean kategoriaOndo = true;
 
-    private void openEditDialog() {
-        Produktuak sel = tableView.getSelectionModel().getSelectedItem();
-        if (sel == null) { alerta("Aukeratu", "Hautatu produktua editatzeko"); return; }
-
-        Produktuak mod = editDialog(sel);
-        if (mod != null) {
-            boolean ok = ProduktuakDB.update(mod);
-            if (ok) kargatuDatuak();
-            else alerta("Errorea", "Ezin izan da produktua eguneratu");
-        }
-    }
-
-    private void deleteSelected() {
-        Produktuak sel = tableView.getSelectionModel().getSelectedItem();
-        if (sel == null) { alerta("Aukeratu", "Hautatu produktua ezabatzeko"); return; }
-
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Ziur zaude ezabatu nahi duzula?", ButtonType.YES, ButtonType.NO);
-        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-        a.showAndWait().ifPresent(btn -> {
-            if (btn == ButtonType.YES) {
-                boolean ok = ProduktuakDB.delete(sel.getId());
-                if (ok) kargatuDatuak();
-                else alerta("Errorea", "Ezin izan da produktua ezabatu");
+            if (kategoriaIzena != null) {
+                String produktuKategoria = kategoriakMapa.get(p.getKategoriaId());
+                kategoriaOndo = kategoriaIzena.equals(produktuKategoria);
             }
+
+            return testuaOndo && kategoriaOndo;
         });
     }
 
-
-    private Produktuak editDialog(Produktuak p) {
-        Dialog<Produktuak> dialog = new Dialog<>();
-        dialog.setTitle(p == null ? "Gehitu Produktua" : "Editatu Produktua");
-
-
-        ButtonType saveBtn = new ButtonType("Gorde", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(saveBtn, ButtonType.CANCEL);
-
-
-        TextField tfIzena = new TextField();
-        TextField tfKategoria = new TextField();
-        TextField tfPrezioa = new TextField();
-        TextField tfStock = new TextField();
-
-        if (p != null) {
-            tfIzena.setText(p.getIzena());
-            tfKategoria.setText(String.valueOf(p.getKategoria_id()));
-            tfPrezioa.setText(String.valueOf(p.getPrezioa()));
-            tfStock.setText(String.valueOf(p.getStock_aktuala()));
-        }
-
-        VBox content = new VBox(8);
-        content.getChildren().addAll(
-                new Label("Izena"), tfIzena,
-                new Label("Kategoria ID"), tfKategoria,
-                new Label("Prezioa"), tfPrezioa,
-                new Label("Stock"), tfStock
-        );
-        dialog.getDialogPane().setContent(content);
-
-        dialog.setResultConverter(btn -> {
-            if (btn == saveBtn) {
-                try {
-                    Produktuak np = (p == null) ? new Produktuak() : p;
-                    np.setIzena(tfIzena.getText().trim());
-                    np.setKategoria_id(Integer.parseInt(tfKategoria.getText().trim()));
-                    np.setPrezioa(Double.parseDouble(tfPrezioa.getText().trim()));
-                    np.setStock_aktuala(Integer.parseInt(tfStock.getText().trim()));
-                    return np;
-                } catch (Exception ex) {
-                    alerta("Balio okerra", "Begiratu datuak: " + ex.getMessage());
-                    return null;
-                }
-            }
-            return null;
-        });
-
-        return dialog.showAndWait().orElse(null);
+    @FXML
+    private void gehituProduktua() {
+        System.out.println("Gehitu klik"); // para comprobar
+        irekiFormulario(null);
     }
 
-    private void alerta(String title, String mezua) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, mezua, ButtonType.OK);
-        a.setTitle(title);
-        a.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+    @FXML
+    private void editatuProduktua() {
+        System.out.println("Editatu klik"); // para comprobar
+        Produktuak p = produktuTable.getSelectionModel().getSelectedItem();
+        if (p != null) irekiFormulario(p);
+        else alerta("Aukeratu produktu bat editatzeko.");
+    }
+
+    @FXML
+    private void ezabatuProduktua() {
+        Produktuak p = produktuTable.getSelectionModel().getSelectedItem();
+        if (p != null) {
+            ProduktuakDB.ezabatuProduktua(p.getId());
+            berritu();
+        } else {
+            alerta("Aukeratu produktu bat ezabatzeko.");
+        }
+    }
+
+    private void irekiFormulario(Produktuak p) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/produktua_form.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(loader.load()));
+            ProduktuaFormController ctrl = loader.getController();
+            ctrl.setProduktua(p);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle(p == null ? "Produktua gehitu" : "Produktua editatu");
+            stage.showAndWait();
+            berritu();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void berritu() {
+        produktuak.setAll(ProduktuakDB.lortuProduktuak());
+    }
+
+    private void alerta(String mezua) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setHeaderText(null);
+        a.setContentText(mezua);
         a.showAndWait();
     }
 }

@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
             fx:controller="kontrola.ProduktuakController"
-            prefWidth="800" prefHeight="600">
+            prefWidth="900"
+            prefHeight="500">
 
     <top>
         <ToolBar>
-            <Button fx:id="btnAdd" text="Gehitu" />
-            <Button fx:id="btnEdit" text="Editatu" />
-            <Button fx:id="btnDelete" text="Ezabatu" />
+            <Label text="Bilatu:"/>
+            <TextField fx:id="txtBilatu" promptText="Produktuaren izena"/>
+
+            <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituProduktua"/>
+            <Button fx:id="btnEdit" text="Editatu" onAction="#editatuProduktua"/>
+            <Button fx:id="btnDelete" text="Ezabatu" onAction="#ezabatuProduktua"/>
+
+            <Separator orientation="VERTICAL"/>
+
+            <Label text="Filtratu kategoria:"/>
+            <ComboBox fx:id="cmbKategoriak" prefWidth="150"/>
         </ToolBar>
     </top>
 
     <center>
-        <TableView fx:id="tableView">
+        <TableView fx:id="produktuTable">
             <columns>
-                <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
                 <TableColumn fx:id="colIzena" text="Izena" prefWidth="250"/>
-                <TableColumn fx:id="colKategoria" text="Kategoria ID" prefWidth="120"/>
-                <TableColumn fx:id="colPrezioa" text="Prezioa" prefWidth="120"/>
-                <TableColumn fx:id="colStock" text="Stock" prefWidth="120"/>
+                <TableColumn fx:id="colKategoria" text="Kategoria" prefWidth="150"/>
+                <TableColumn fx:id="colPrezioa" text="Prezioa" prefWidth="100"/>
+                <TableColumn fx:id="colStock" text="Stock" prefWidth="100"/>
             </columns>
         </TableView>
     </center>
-
 </BorderPane>

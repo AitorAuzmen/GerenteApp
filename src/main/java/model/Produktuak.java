@@ -1,35 +1,32 @@
 package model;
 
 public class Produktuak {
+
     private int id;
     private String izena;
-    private int kategoria_id;
+    private int kategoriaId;
     private double prezioa;
-    private int stock_aktuala;
+    private int stockAktuala;
 
-
-    public Produktuak() {}
-
-
-    public Produktuak(int id, String izena, int kategoria_id, double prezioa, int stock_aktuala) {
+    public Produktuak(int id, String izena, int kategoriaId, double prezioa, int stockAktuala) {
         this.id = id;
         this.izena = izena;
-        this.kategoria_id = kategoria_id;
+        this.kategoriaId = kategoriaId;
         this.prezioa = prezioa;
-        this.stock_aktuala = stock_aktuala;
+        this.stockAktuala = stockAktuala;
     }
 
-
+    // --- GETTERS ---
     public int getId() { return id; }
     public String getIzena() { return izena; }
-    public int getKategoria_id() { return kategoria_id; }
+    public int getKategoriaId() { return kategoriaId; }
     public double getPrezioa() { return prezioa; }
-    public int getStock_aktuala() { return stock_aktuala; }
+    public int getStockAktuala() { return stockAktuala; }
 
-
-    public void setId(int id) { this.id = id; }
+    // --- SETTERS ---
+    public void setId(int id) { this.id = id; } // <-- este era el que faltaba
     public void setIzena(String izena) { this.izena = izena; }
-    public void setKategoria_id(int kategoria_id) { this.kategoria_id = kategoria_id; }
+    public void setKategoriaId(int kategoriaId) { this.kategoriaId = kategoriaId; }
     public void setPrezioa(double prezioa) { this.prezioa = prezioa; }
-    public void setStock_aktuala(int stock_aktuala) { this.stock_aktuala = stock_aktuala; }
+    public void setStockAktuala(int stockAktuala) { this.stockAktuala = stockAktuala; }
 }
