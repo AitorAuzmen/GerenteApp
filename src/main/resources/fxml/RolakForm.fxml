@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="kontrola.RolakFormController"
+            prefWidth="300" prefHeight="150">
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10"
+          AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+        <Label text="Izena:"/>
+        <TextField fx:id="txtIzena" promptText="Sartu izena"/>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button fx:id="btnGorde" text="Gorde" onAction="#gorde"/>
+            <Button fx:id="btnUtzi" text="Utzi" onAction="#itxi"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
+

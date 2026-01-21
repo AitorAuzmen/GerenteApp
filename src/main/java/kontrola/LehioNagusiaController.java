@@ -16,21 +16,38 @@ public class LehioNagusiaController {
         System.out.println("LehioNagusiaController inicializado correctamente.");
     }
 
+    
     @FXML
-    private void kargatuProduktuak() {
+    public void kargatuProduktuak() {
         cargarVista("/fxml/produktuak.fxml", "Produktuak");
     }
 
     @FXML
-    private void kargatuErabiltzaileak() {
+    public void kargatuErabiltzaileak() {
         cargarVista("/fxml/erabiltzaileak.fxml", "Erabiltzaileak");
     }
 
     @FXML
-    private void kargatuKategoriak() {
+    public void kargatuKategoriak() {
         cargarVista("/fxml/kategoriak.fxml", "Kategoriak");
     }
 
+    @FXML
+    public void kargatuMahaiak() {
+        cargarVista("/fxml/mahaiak.fxml", "Mahaiak");
+    }
+
+    @FXML
+    public void kargatuRolak() {
+        cargarVista("/fxml/rolak.fxml", "Rolak");
+    }
+
+    @FXML
+    public void kargatuOsagaiak() {
+        cargarVista("/fxml/osagaiak.fxml", "Osagaiak");
+    }
+
+    
     private void cargarVista(String rutaFXML, String nombreVista) {
         System.out.println("Pantalla de " + nombreVista + "...");
 
@@ -41,7 +58,7 @@ public class LehioNagusiaController {
 
             Parent pane = loader.load();
 
-            // Aplica estilos si quieres
+            
             pane.getStylesheets().add(
                     Objects.requireNonNull(getClass().getResource("/css/estilo.css")).toExternalForm()
             );

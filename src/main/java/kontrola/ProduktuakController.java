@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Produktuak;
@@ -28,33 +29,53 @@ public class ProduktuakController {
     @FXML private TextField txtBilatu;
     @FXML private ComboBox<String> cmbKategoriak;
 
+    @FXML private Button btnAdd, btnEdit, btnDelete;
+
     private ObservableList<Produktuak> produktuak;
     private FilteredList<Produktuak> filtratua;
-
-    // NUEVO: mapa id -> nombre de categoría
     private Map<Integer, String> kategoriakMapa;
 
     @FXML
     public void initialize() {
 
+        
         colIzena.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getIzena()));
         colKategoria.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getKategoriaId()));
         colPrezioa.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getPrezioa()));
         colStock.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getStockAktuala()));
 
+        
         produktuak = FXCollections.observableArrayList(ProduktuakDB.lortuProduktuak());
         filtratua = new FilteredList<>(produktuak, p -> true);
         produktuTable.setItems(filtratua);
 
-        // NUEVO: inicializamos mapa y ComboBox con nombres
+        
         kategoriakMapa = KategoriakDB.lortuKategoriakMap();
         cmbKategoriak.getItems().setAll(kategoriakMapa.values());
 
+        
         txtBilatu.textProperty().addListener((obs, old, val) -> aplikatuFiltro());
         cmbKategoriak.valueProperty().addListener((obs, old, val) -> aplikatuFiltro());
+
+        
+        produktuTable.setRowFactory(tv -> {
+            TableRow<Produktuak> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    produktuTable.getSelectionModel().select(row.getItem());
+                    editatuProduktua();
+                }
+            });
+            return row;
+        });
+
+        
+        produktuTable.getSelectionModel().selectedItemProperty()
+                .addListener((obs, old, val) -> actualizarBotones());
+
+        actualizarBotones(); 
     }
 
-    // FILTRO CORREGIDO
     private void aplikatuFiltro() {
         String testua = txtBilatu.getText().toLowerCase();
         String kategoriaIzena = cmbKategoriak.getValue();
@@ -64,23 +85,27 @@ public class ProduktuakController {
             boolean kategoriaOndo = true;
 
             if (kategoriaIzena != null) {
-                String produktuKategoria = kategoriakMapa.get(p.getKategoriaId());
-                kategoriaOndo = kategoriaIzena.equals(produktuKategoria);
+                String produktuaKategoria = kategoriakMapa.get(p.getKategoriaId());
+                kategoriaOndo = kategoriaIzena.equals(produktuaKategoria);
             }
 
             return testuaOndo && kategoriaOndo;
         });
     }
 
+    private void actualizarBotones() {
+        Produktuak sel = produktuTable.getSelectionModel().getSelectedItem();
+        btnEdit.setDisable(sel == null);
+        btnDelete.setDisable(sel == null);
+    }
+
     @FXML
     private void gehituProduktua() {
-        System.out.println("Gehitu klik"); // para comprobar
         irekiFormulario(null);
     }
 
     @FXML
     private void editatuProduktua() {
-        System.out.println("Editatu klik"); // para comprobar
         Produktuak p = produktuTable.getSelectionModel().getSelectedItem();
         if (p != null) irekiFormulario(p);
         else alerta("Aukeratu produktu bat editatzeko.");
@@ -110,6 +135,7 @@ public class ProduktuakController {
             berritu();
         } catch (Exception e) {
             e.printStackTrace();
+            alerta("Errorea: ezin izan da formularioa ireki.");
         }
     }
 

@@ -1,3 +1,4 @@
+
 package model;
 
 public class Erabiltzailea {
@@ -10,11 +11,8 @@ public class Erabiltzailea {
     private boolean ezabatua;
     private boolean chat;
 
-    // Constructor vacío
-    public Erabiltzailea() {
-    }
+    public Erabiltzailea() {}
 
-    // Constructor completo
     public Erabiltzailea(int id, String erabiltzailea, String email,
                          String pasahitza, int rolaId,
                          boolean ezabatua, boolean chat) {
@@ -27,66 +25,40 @@ public class Erabiltzailea {
         this.chat = chat;
     }
 
-    // Nuevo constructor solo con nombre de usuario y contraseña
     public Erabiltzailea(String erabiltzailea, String pasahitza) {
         this.erabiltzailea = erabiltzailea;
         this.pasahitza = pasahitza;
     }
 
-    // Getters y setters
-    public int getId() {
-        return id;
-    }
+    
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getErabiltzailea() { return erabiltzailea; }
+    public void setErabiltzailea(String erabiltzailea) { this.erabiltzailea = erabiltzailea; }
 
-    public String getErabiltzailea() {
-        return erabiltzailea;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setErabiltzailea(String erabiltzailea) {
-        this.erabiltzailea = erabiltzailea;
-    }
+    public String getPasahitza() { return pasahitza; }
+    public void setPasahitza(String pasahitza) { this.pasahitza = pasahitza; }
 
-    public String getEmail() {
-        return email;
-    }
+    public int getRolaId() { return rolaId; }
+    public void setRolaId(int rolaId) { this.rolaId = rolaId; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public boolean isEzabatua() { return ezabatua; }
+    public void setEzabatua(boolean ezabatua) { this.ezabatua = ezabatua; }
 
-    public String getPasahitza() {
-        return pasahitza;
-    }
+    public boolean isChat() { return chat; }
+    public void setChat(boolean chat) { this.chat = chat; }
 
-    public void setPasahitza(String pasahitza) {
-        this.pasahitza = pasahitza;
-    }
-
-    public int getRolaId() {
-        return rolaId;
-    }
-
-    public void setRolaId(int rolaId) {
-        this.rolaId = rolaId;
-    }
-
-    public boolean isEzabatua() {
-        return ezabatua;
-    }
-
-    public void setEzabatua(boolean ezabatua) {
-        this.ezabatua = ezabatua;
-    }
-
-    public boolean isChat() {
-        return chat;
-    }
-
-    public void setChat(boolean chat) {
-        this.chat = chat;
+    
+    public String getRola() {
+        switch (rolaId) {
+            case 1: return "Admin";
+            case 2: return "Langilea";
+            case 3: return "Manager";
+            default: return "Desconocido";
+        }
     }
 }

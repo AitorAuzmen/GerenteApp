@@ -16,15 +16,15 @@ public class Produktuak {
         this.stockAktuala = stockAktuala;
     }
 
-    // --- GETTERS ---
+    
     public int getId() { return id; }
     public String getIzena() { return izena; }
     public int getKategoriaId() { return kategoriaId; }
     public double getPrezioa() { return prezioa; }
     public int getStockAktuala() { return stockAktuala; }
 
-    // --- SETTERS ---
-    public void setId(int id) { this.id = id; } // <-- este era el que faltaba
+    
+    public void setId(int id) { this.id = id; } 
     public void setIzena(String izena) { this.izena = izena; }
     public void setKategoriaId(int kategoriaId) { this.kategoriaId = kategoriaId; }
     public void setPrezioa(double prezioa) { this.prezioa = prezioa; }

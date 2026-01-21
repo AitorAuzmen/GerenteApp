@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="kontrola.OsagaiakFormController"
+            prefWidth="350" prefHeight="200">
+    <VBox spacing="10">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <Label text="Izena:"/>
+        <TextField fx:id="txtIzena" promptText="Sartu izena"/>
+
+        <Label text="Unitatea:"/>
+        <TextField fx:id="txtUnitatea" promptText="Sartu unitatea"/>
+
+        <Label text="Stock Aktuala:"/>
+        <TextField fx:id="txtStock" promptText="Sartu stock-a"/>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button fx:id="btnGorde" text="Gorde" onAction="#gordeOsagaia"/>
+            <Button fx:id="btnUtzi" text="Utzi" onAction="#itxi"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

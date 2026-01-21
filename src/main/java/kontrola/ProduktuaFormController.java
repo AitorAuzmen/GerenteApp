@@ -49,15 +49,15 @@ public class ProduktuaFormController {
     public void initialize() {
         osagaiTaula.setEditable(true);
 
-        // -----------------------------
-        // Cargar categorías
-        // -----------------------------
+        
+        
+        
         cmbKategoria.setItems(FXCollections.observableArrayList(KategoriakDB.lortuKategoriakMap().values()));
 
 
-        // -----------------------------
-        // Cargar osagaiak
-        // -----------------------------
+        
+        
+        
         List<Osagaiak> guztiak = OsagaiakDB.lortuGuztiak();
         ObservableList<String> osagaiIzenaLista = FXCollections.observableArrayList();
         for (Osagaiak o : guztiak) osagaiIzenaLista.add(o.getIzena());
@@ -85,9 +85,9 @@ public class ProduktuaFormController {
 
         colUnitatea.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(c.getValue().getUnitatea()));
 
-        // -----------------------------
-        // Filtro con FilteredList
-        // -----------------------------
+        
+        
+        
         filtratua = new FilteredList<>(osagaiak, po -> true);
         osagaiTaula.setItems(filtratua);
 
@@ -103,7 +103,7 @@ public class ProduktuaFormController {
 
     @FXML
     private void gehituOsagaia() {
-        // productoId = 0 (todavía no guardado), osagaiaId = 0, izena="", kantitatea=1.0, unitatea=""
+        
         osagaiak.add(new ProduktuOsagaia(0, 0, "", 1.0, ""));
     }
 

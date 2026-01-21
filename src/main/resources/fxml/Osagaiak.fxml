@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="kontrola.OsagaiakController"
+            prefWidth="500"
+            prefHeight="400">
+
+    <!-- Barra superior con búsqueda y botones -->
+    <top>
+        <ToolBar>
+            <Label text="Bilatu:"/>
+            <TextField fx:id="txtBuscar" promptText="Osagaia izena"/>
+
+            <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituOsagaia"/>
+            <Button fx:id="btnEdit" text="Editatu" onAction="#editatuOsagaia"/>
+            <Button fx:id="btnDelete" text="Ezabatu" onAction="#ezabatuOsagaia"/>
+        </ToolBar>
+    </top>
+
+    <!-- Tabla en el centro -->
+    <center>
+        <TableView fx:id="table" prefHeight="300">
+            <columns>
+                <TableColumn fx:id="colIzena" text="Izena" prefWidth="200"/>
+                <TableColumn fx:id="colUnitatea" text="Unitatea" prefWidth="150"/>
+                <TableColumn fx:id="colStock" text="Stock Aktuala" prefWidth="150"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

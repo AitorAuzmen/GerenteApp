@@ -2,7 +2,7 @@ package model;
 
 public class ProduktuOsagaia {
 
-    private int produktuaId; // <-- este es el ID del producto al que pertenece
+    private int produktuaId; 
     private int osagaiaId;
     private String izena;
     private double kantitatea;
@@ -16,14 +16,14 @@ public class ProduktuOsagaia {
         this.unitatea = unitatea;
     }
 
-    // --- GETTERS ---
+    
     public int getProduktuaId() { return produktuaId; }
     public int getOsagaiaId() { return osagaiaId; }
     public String getIzena() { return izena; }
     public double getKantitatea() { return kantitatea; }
     public String getUnitatea() { return unitatea; }
 
-    // --- SETTERS ---
+    
     public void setProduktuaId(int produktuaId) { this.produktuaId = produktuaId; }
     public void setOsagaiaId(int osagaiaId) { this.osagaiaId = osagaiaId; }
     public void setIzena(String izena) { this.izena = izena; }

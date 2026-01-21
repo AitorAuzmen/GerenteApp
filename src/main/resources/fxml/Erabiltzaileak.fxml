@@ -9,7 +9,6 @@
             prefWidth="900"
             prefHeight="500">
 
-
     <top>
         <ToolBar fx:id="toolbar">
             <Label text="Bilatu:"/>
@@ -23,9 +22,11 @@
 
             <Label text="Filtratu:"/>
             <ComboBox fx:id="cmbFiltro" prefWidth="130"/>
+
+            <Label text="Rola:"/>
+            <ComboBox fx:id="cmbRola" prefWidth="130"/>
         </ToolBar>
     </top>
-
 
     <center>
         <TableView fx:id="erabiltzaileTable">
@@ -33,7 +34,6 @@
                 <TableColumn fx:id="colErabiltzailea" text="Erabiltzailea" prefWidth="150"/>
                 <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
                 <TableColumn fx:id="colPasahitza" text="Pasahitza" prefWidth="150"/>
-                <TableColumn fx:id="colRola" text="Rola" prefWidth="100"/>
                 <TableColumn fx:id="colEzabatua" text="Ezabatua" prefWidth="100"/>
                 <TableColumn fx:id="colChat" text="Chat" prefWidth="100"/>
             </columns>

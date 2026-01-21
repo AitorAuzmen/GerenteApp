@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class KategoriakDB {
 
-    // Obtener todas las categorías
+    
     public static List<Kategoria> lortuKategoriak() {
         List<Kategoria> lista = new ArrayList<>();
         String sql = "SELECT * FROM kategoriak";
@@ -31,7 +31,7 @@ public class KategoriakDB {
         return lista;
     }
 
-    // Obtener categorías en forma de mapa id -> nombre
+    
     public static Map<Integer, String> lortuKategoriakMap() {
         Map<Integer, String> mapa = new HashMap<>();
         for (Kategoria k : lortuKategoriak()) {
@@ -40,7 +40,7 @@ public class KategoriakDB {
         return mapa;
     }
 
-    // Insertar una nueva categoría y devolver su id generado
+    
     public static int gehituKategoria(Kategoria k) {
         String sql = "INSERT INTO kategoriak (izena) VALUES (?)";
 
@@ -60,7 +60,7 @@ public class KategoriakDB {
         return -1;
     }
 
-    // Actualizar el nombre de una categoría existente
+    
     public static void eguneratuKategoria(Kategoria k) {
         String sql = "UPDATE kategoriak SET izena=? WHERE id=?";
 
@@ -76,7 +76,7 @@ public class KategoriakDB {
         }
     }
 
-    // Comprobar si una categoría tiene productos asociados
+    
     public static boolean dagoProdukturik(int kategoriaId) {
         String sql = "SELECT COUNT(*) FROM produktuak WHERE kategoria_id=?";
         try (Connection c = Conn.getConnection();
@@ -85,7 +85,7 @@ public class KategoriakDB {
             ps.setInt(1, kategoriaId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // true si hay productos asociados
+                return rs.getInt(1) > 0; 
             }
 
         } catch (SQLException e) {
@@ -94,10 +94,10 @@ public class KategoriakDB {
         return false;
     }
 
-    // Borrar una categoría solo si no tiene productos asociados
+    
     public static boolean ezabatuKategoria(int id) {
         if (dagoProdukturik(id)) {
-            return false; // No se puede borrar
+            return false; 
         }
 
         String sql = "DELETE FROM kategoriak WHERE id=?";
@@ -114,7 +114,7 @@ public class KategoriakDB {
         return false;
     }
 
-    // Buscar categorías por nombre (opcional)
+    
     public static List<Kategoria> lortuKategoriak(String filtro) {
         List<Kategoria> lista = new ArrayList<>();
         String sql = "SELECT * FROM kategoriak WHERE izena LIKE ?";

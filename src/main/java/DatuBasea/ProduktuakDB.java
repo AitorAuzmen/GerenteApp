@@ -32,7 +32,7 @@ public class ProduktuakDB {
         return lista;
     }
 
-    // --- Método actualizado para devolver ID generado ---
+    
     public static int gehituProduktua(Produktuak p) {
         String sql = "INSERT INTO produktuak (izena, kategoria_id, prezioa, stock_aktuala) VALUES (?, ?, ?, ?)";
 
@@ -52,8 +52,8 @@ public class ProduktuakDB {
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
                     int idGenerado = rs.getInt(1);
-                    p.setId(idGenerado); // Asignar ID al objeto
-                    return idGenerado;   // Devolver ID
+                    p.setId(idGenerado); 
+                    return idGenerado;   
                 } else {
                     throw new SQLException("No se pudo obtener el ID del producto insertado.");
                 }

@@ -26,9 +26,9 @@ public class ProduktuOsagaiakDB {
 
             while (rs.next()) {
                 lista.add(new ProduktuOsagaia(
-                        produktuaId,           // ID del producto pasado al método
-                        rs.getInt("id"),       // ID del ingrediente
-                        rs.getString("izena"), // nombre del ingrediente
+                        produktuaId,           
+                        rs.getInt("id"),       
+                        rs.getString("izena"), 
                         rs.getDouble("kantitatea"),
                         rs.getString("unitatea")
                 ));

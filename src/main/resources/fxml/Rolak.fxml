@@ -5,7 +5,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="kontrola.KategoriakController"
+            fx:controller="kontrola.RolakController"
             prefWidth="500"
             prefHeight="400">
 
@@ -13,17 +13,17 @@
     <top>
         <ToolBar>
             <Label text="Bilatu:"/>
-            <TextField fx:id="txtBilatu" promptText="Kategoria izena"/>
+            <TextField fx:id="txtBuscar" promptText="Rol izena"/>
 
-            <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituKategoria"/>
-            <Button fx:id="btnEdit" text="Editatu" onAction="#editatuKategoria"/>
-            <Button fx:id="btnDelete" text="Ezabatu" onAction="#ezabatuKategoria"/>
+            <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituRol"/>
+            <Button fx:id="btnEdit" text="Editatu" onAction="#editatuRol"/>
+            <Button fx:id="btnDelete" text="Ezabatu" onAction="#ezabatuRol"/>
         </ToolBar>
     </top>
 
     <!-- Tabla en el centro -->
     <center>
-        <TableView fx:id="kategoriakTable" prefHeight="300">
+        <TableView fx:id="rolakTable" prefHeight="300">
             <columns>
                 <TableColumn fx:id="colIzena" text="Izena" prefWidth="480"/>
             </columns>
