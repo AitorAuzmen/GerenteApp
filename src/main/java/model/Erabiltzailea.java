@@ -55,9 +55,9 @@ public class Erabiltzailea {
     
     public String getRola() {
         switch (rolaId) {
-            case 1: return "Admin";
-            case 2: return "Langilea";
-            case 3: return "Manager";
+            case 1: return "administratzailea";
+            case 2: return "zerbitzaria";
+            case 3: return "sukaldaria";
             default: return "Desconocido";
         }
     }

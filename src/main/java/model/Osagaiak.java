@@ -4,11 +4,11 @@ public class Osagaiak {
     private int id;
     private String izena;
     private String unitatea;
-    private int stock_aktuala;
+    private double stock_aktuala;
 
     public Osagaiak() {}
 
-    public Osagaiak(int id, String izena, String unitatea, int stock_aktuala) {
+    public Osagaiak(int id, String izena, String unitatea, double stock_aktuala) {
         this.id = id;
         this.izena = izena;
         this.unitatea = unitatea;
@@ -39,11 +39,11 @@ public class Osagaiak {
         this.unitatea = unitatea;
     }
 
-    public int getStock_aktuala() {
+    public double getStock_aktuala() {
         return stock_aktuala;
     }
 
-    public void setStock_aktuala(int stock_aktuala) {
+    public void setStock_aktuala(double stock_aktuala) {
         this.stock_aktuala = stock_aktuala;
     }
 

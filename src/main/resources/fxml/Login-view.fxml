@@ -28,7 +28,7 @@
 
                 <Label text="JAUS" style="-fx-text-fill: #3F7AE0; -fx-font-weight: bold;">
                     <font>
-                        <Font size="28" />
+                        <Font size="28"/>
                     </font>
                 </Label>
 
@@ -38,7 +38,7 @@
                            prefWidth="220"
                            style="-fx-background-radius: 5;
                                   -fx-border-radius: 5;
-                                  -fx-border-color: #cccccc;" />
+                                  -fx-border-color: #cccccc;"/>
 
 
                 <PasswordField fx:id="txtPasahitza"
@@ -46,7 +46,7 @@
                                prefWidth="220"
                                style="-fx-background-radius: 5;
                                       -fx-border-radius: 5;
-                                      -fx-border-color: #cccccc;" />
+                                      -fx-border-color: #cccccc;"/>
 
 
                 <Button fx:id="btnSaioaHasi"
@@ -56,7 +56,7 @@
                         style="-fx-background-color: #E67E22;
                                -fx-text-fill: white;
                                -fx-background-radius: 5;
-                               -fx-padding: 8 20;" />
+                               -fx-padding: 8 20;"/>
 
             </children>
 

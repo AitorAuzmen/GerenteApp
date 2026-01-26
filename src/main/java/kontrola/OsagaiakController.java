@@ -16,7 +16,7 @@ public class OsagaiakController {
     @FXML private TableView<Osagaiak> table;
     @FXML private TableColumn<Osagaiak, String> colIzena;
     @FXML private TableColumn<Osagaiak, String> colUnitatea;
-    @FXML private TableColumn<Osagaiak, Integer> colStock;
+    @FXML private TableColumn<Osagaiak, Double> colStock;
     @FXML private TextField txtBuscar;
 
     private ObservableList<Osagaiak> masterData;

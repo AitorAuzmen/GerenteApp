@@ -3,6 +3,7 @@ package kontrola;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -60,7 +61,12 @@ public class OsagaiakFormController {
 
         osagaia.setIzena(txtIzena.getText());
         osagaia.setUnitatea(txtUnitatea.getText());
-        osagaia.setStock_aktuala(Integer.parseInt(txtStock.getText()));
+        try {
+            osagaia.setStock_aktuala(Double.parseDouble(txtStock.getText()));
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING, "Stock aktuala zenbaki balioduna izan behar da.").showAndWait();
+            return;
+        }
 
         btnGorde.getScene().getWindow().hide();
     }

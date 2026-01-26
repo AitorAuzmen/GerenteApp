@@ -23,11 +23,10 @@
     <center>
         <TableView fx:id="mahaiakTable" prefHeight="300">
             <columns>
-                <TableColumn fx:id="colZenbakia" text="Zenbakia" prefWidth="200"/>
-                <TableColumn fx:id="colEgoera" text="Egoera" prefWidth="280"/>
+                <TableColumn fx:id="colZenbakia" text="Zenbakia" prefWidth="160"/>
+                <TableColumn fx:id="colKapazitatea" text="Kapazitatea" prefWidth="120"/>
+                <TableColumn fx:id="colEgoera" text="Egoera" prefWidth="200"/>
             </columns>
         </TableView>
     </center>
 </BorderPane>
-
-

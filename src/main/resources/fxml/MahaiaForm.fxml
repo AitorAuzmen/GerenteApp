@@ -17,6 +17,9 @@
         <Label text="Zenbakia:"/>
         <TextField fx:id="txtZenbakia" promptText="Sartu mahai zenbakia"/>
 
+        <Label text="Kapazitatea:"/>
+        <TextField fx:id="txtKapazitatea" promptText="Sartu kapazitatea"/>
+
         <Label text="Egoera:"/>
         <ComboBox fx:id="cmbEgoera" promptText="Hautatu egoera"/>
 
@@ -26,5 +29,3 @@
         </HBox>
     </VBox>
 </AnchorPane>
-
-

@@ -24,7 +24,7 @@ public class OsagaiakDB {
                 o.setId(rs.getInt("id"));
                 o.setIzena(rs.getString("izena"));
                 o.setUnitatea(rs.getString("unitatea"));
-                o.setStock_aktuala(rs.getInt("stock_aktuala"));
+                o.setStock_aktuala(rs.getDouble("stock_aktuala"));
                 lista.add(o);
             }
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class OsagaiakDB {
                     o.setId(rs.getInt("id"));
                     o.setIzena(rs.getString("izena"));
                     o.setUnitatea(rs.getString("unitatea"));
-                    o.setStock_aktuala(rs.getInt("stock_aktuala"));
+                    o.setStock_aktuala(rs.getDouble("stock_aktuala"));
                     return o;
                 }
             }
@@ -60,7 +60,7 @@ public class OsagaiakDB {
              PreparedStatement pst = conn.prepareStatement(sql)) {
             pst.setString(1, o.getIzena());
             pst.setString(2, o.getUnitatea());
-            pst.setInt(3, o.getStock_aktuala());
+            pst.setDouble(3, o.getStock_aktuala());
             return pst.executeUpdate() == 1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,7 +74,7 @@ public class OsagaiakDB {
              PreparedStatement pst = conn.prepareStatement(sql)) {
             pst.setString(1, o.getIzena());
             pst.setString(2, o.getUnitatea());
-            pst.setInt(3, o.getStock_aktuala());
+            pst.setDouble(3, o.getStock_aktuala());
             pst.setInt(4, o.getId());
             return pst.executeUpdate() == 1;
         } catch (Exception e) {
