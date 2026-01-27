@@ -7,10 +7,11 @@ module com.example.erronka4taldea {
     opens kontrola to javafx.fxml;
     opens Util to javafx.fxml;
     opens DatuBasea to javafx.fxml;
-    opens model to javafx.base;  
+    opens model to javafx.base, javafx.fxml;
 
     exports Main;
     exports kontrola;
     exports Util;
     exports DatuBasea;
+    exports model;
 }

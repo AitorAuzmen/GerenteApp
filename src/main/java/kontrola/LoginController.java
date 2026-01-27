@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import model.Erabiltzailea;
 
 public class LoginController {
+    private static Erabiltzailea erabiltzaileLogeatua;
     @FXML
     private TextField txtErabiltzailea;
     @FXML
@@ -32,11 +33,17 @@ public class LoginController {
         LoginManager loginManager = new LoginManager();
 
         if (loginManager.login(user)) {
+            // Guardar usuario logeado
+            erabiltzaileLogeatua = user;
             alertaErakutsi("Saioa ondo hasi da", "Ongi etorri, " + erabiltzailea + "!", Alert.AlertType.INFORMATION);
             leihoNagusiaIreki();
         } else {
             alertaErakutsi("Errorea", "Erabiltzailea edo pasahitza okerra", Alert.AlertType.ERROR);
         }
+    }
+
+    public static Erabiltzailea getErabiltzaileaLogeatua() {
+        return erabiltzaileLogeatua;
     }
 
     private void alertaErakutsi(String izenburua, String mezua, Alert.AlertType mota) {

@@ -20,6 +20,9 @@ import model.Produktuak;
 import java.util.List;
 import java.util.Map;
 
+import model.Erabiltzailea;
+import kontrola.LoginController;
+
 public class ProduktuaFormController {
 
     @FXML private TextField txtIzena, txtPrezioa, txtStock, txtBilatuOsagaia;
@@ -43,11 +46,15 @@ public class ProduktuaFormController {
             Map<Integer, String> mapa = KategoriakDB.lortuKategoriakMap();
             cmbKategoria.setValue(mapa.get(p.getKategoriaId()));
         }
+        // Stock nunca editable
+        txtStock.setEditable(false);
     }
 
     @FXML
     public void initialize() {
         osagaiTaula.setEditable(true);
+        // Stock nunca editable
+        txtStock.setEditable(false);
 
         
         

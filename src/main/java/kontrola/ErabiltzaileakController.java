@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import DatuBasea.RolakDB;
+import model.Rolak;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Erabiltzailea;
@@ -21,7 +23,7 @@ public class ErabiltzaileakController {
     @FXML private TableColumn<Erabiltzailea, Boolean> colChat;
 
     @FXML private ComboBox<String> cmbFiltro;
-    @FXML private ComboBox<String> cmbRola; 
+    @FXML private ComboBox<Rolak> cmbRola; 
     @FXML private TextField txtBuscar;
     @FXML private Button btnAdd, btnEdit, btnDelete;
 
@@ -58,11 +60,16 @@ public class ErabiltzaileakController {
 
         
         cmbFiltro.getItems().addAll("Aktiboak", "Borratuak", "Dena");
+
         cmbFiltro.setValue("Aktiboak");
 
-        
-        cmbRola.getItems().addAll("Denak", "Admin", "Langilea");
-        cmbRola.setValue("Denak");
+        cmbRola.getItems().clear();
+        cmbRola.getItems().add(null); // "Denak" aukera
+        for (Rolak r : RolakDB.lortuGuztiak()) {
+            cmbRola.getItems().add(r);
+        }
+        cmbRola.setPromptText("Denak");
+        cmbRola.setValue(null);
 
         
         erabiltzaileak = FXCollections.observableArrayList(erabiltzaileakDB.getAll());
@@ -101,24 +108,21 @@ public class ErabiltzaileakController {
     
     private void aplikatuFiltro() {
         String filtro = cmbFiltro.getValue();
-        String rolFiltro = cmbRola.getValue();
+        Rolak rolFiltro = cmbRola.getValue();
         String bilaketa = txtBuscar.getText() == null ? "" : txtBuscar.getText().toLowerCase();
 
         erabiltzaileakFiltratuak.setPredicate(e -> {
-            
             boolean status;
             if ("Aktiboak".equals(filtro)) status = !e.isEzabatua();
             else if ("Borratuak".equals(filtro)) status = e.isEzabatua();
             else status = true;
 
-            
             boolean text = e.getErabiltzailea().toLowerCase().contains(bilaketa)
                     || e.getEmail().toLowerCase().contains(bilaketa);
 
-            
             boolean rol = true;
-            if (!"Denak".equals(rolFiltro)) {
-                rol = e.getRola().equals(rolFiltro); 
+            if (rolFiltro != null) {
+                rol = e.getRolaId() == rolFiltro.getId();
             }
 
             return status && text && rol;
