@@ -196,25 +196,42 @@ public class ErabiltzaileakController {
 
     private Erabiltzailea dialog(Erabiltzailea e) {
         Dialog<Erabiltzailea> d = new Dialog<>();
-        d.setTitle(e == null ? "Gehitu" : "Editatu");
+        d.setTitle(e == null ? "Gehitu erabiltzailea" : "Editatu erabiltzailea");
 
         ButtonType save = new ButtonType("Gorde", ButtonBar.ButtonData.OK_DONE);
         d.getDialogPane().getButtonTypes().addAll(save, ButtonType.CANCEL);
 
-        TextField t1 = new TextField(), t2 = new TextField();
-        CheckBox chk = new CheckBox("Chat");
+        TextField t1 = new TextField(); // erabiltzailea
+        TextField t2 = new TextField(); // email
+        PasswordField t3 = new PasswordField(); // pasahitza
+        ComboBox<Rolak> cmbRol = new ComboBox<>();
+        CheckBox chk = new CheckBox("Txata aktibatu");
+
+        // Rellenar roles
+        cmbRol.getItems().addAll(RolakDB.lortuGuztiak());
+        cmbRol.setPromptText("Aukeratu rola");
 
         if (e != null) {
             t1.setText(e.getErabiltzailea());
             t2.setText(e.getEmail());
+            t3.setText(e.getPasahitza());
             chk.setSelected(e.isChat());
+            // Seleccionar el rol actual
+            for (Rolak r : cmbRol.getItems()) {
+                if (r.getId() == e.getRolaId()) {
+                    cmbRol.setValue(r);
+                    break;
+                }
+            }
         }
 
         GridPane g = new GridPane();
         g.setVgap(10); g.setHgap(10);
         g.addRow(0, new Label("Erabiltzailea:"), t1);
         g.addRow(1, new Label("Email:"), t2);
-        g.addRow(2, chk);
+        g.addRow(2, new Label("Pasahitza:"), t3);
+        g.addRow(3, new Label("Rola:"), cmbRol);
+        g.addRow(4, chk);
 
         d.getDialogPane().setContent(g);
 
@@ -223,6 +240,9 @@ public class ErabiltzaileakController {
                 Erabiltzailea u = e == null ? new Erabiltzailea() : e;
                 u.setErabiltzailea(t1.getText());
                 u.setEmail(t2.getText());
+                u.setPasahitza(t3.getText());
+                Rolak rol = cmbRol.getValue();
+                u.setRolaId(rol != null ? rol.getId() : 0);
                 u.setChat(chk.isSelected());
                 return u;
             }
