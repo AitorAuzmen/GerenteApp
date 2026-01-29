@@ -1,3 +1,13 @@
+.root {
+    /* Fuente Inter como principal */
+    -fx-font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Regular.ttf');
+}
+
 /* Fondo general */
 .root {
     -fx-background-color: #F4F4F4;
