@@ -108,6 +108,7 @@ public class KategoriakController {
             stage.setTitle(kategoria == null ? "Gehitu Kategoria" : "Editatu Kategoria");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.showAndWait();
 
             cargarDatos();

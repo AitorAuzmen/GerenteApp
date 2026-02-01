@@ -94,6 +94,7 @@ public class MahaiakController {
             stage.setTitle(m == null ? "Mahaia gehitu" : "Mahaia editatu");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
+            stage.setResizable(false);
             stage.showAndWait();
 
             kargatuDatuak();

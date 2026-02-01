@@ -127,6 +127,7 @@ public class ProduktuakController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/produktua_form.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(loader.load()));
+            stage.setResizable(false);
             ProduktuaFormController ctrl = loader.getController();
             ctrl.setProduktua(p);
             stage.initModality(Modality.APPLICATION_MODAL);

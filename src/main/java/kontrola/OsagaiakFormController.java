@@ -29,6 +29,7 @@ public class OsagaiakFormController {
             stage.setTitle(o == null ? "Gehitu Osagaia" : "Editatu Osagaia");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(loader.load()));
+            stage.setResizable(false);
 
             OsagaiakFormController controller = loader.getController();
             controller.setOsagaia(o);

@@ -26,6 +26,7 @@ public class RolakFormController {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(loader.load()));
+            stage.setResizable(false);
             RolakFormController controller = loader.getController();
             controller.setRol(r);
             stage.showAndWait();
