@@ -11,8 +11,8 @@ public class LoginManager {
 
     public boolean login(Erabiltzailea erabiltzailea) {
 
-        String sql = "SELECT * FROM erabiltzaileak " +
-                "WHERE erabiltzailea = ? AND pasahitza = ? AND ezabatua = 0 AND rola_id = 1";
+        String sql = "SELECT id FROM langileak " +
+            "WHERE erabiltzaile_izena = ? AND pasahitza = ? AND ezabatua = 0 AND rola_id = 1";
 
         try (Connection conn = Conn.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

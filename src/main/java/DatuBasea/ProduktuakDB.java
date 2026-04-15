@@ -11,7 +11,7 @@ public class ProduktuakDB {
 
     public static List<Produktuak> lortuProduktuak() {
         List<Produktuak> lista = new ArrayList<>();
-        String sql = "SELECT * FROM produktuak";
+        String sql = "SELECT id, izena, mota, prezioa, stock FROM produktuak";
 
         try (Connection conn = Conn.getConnection();
              Statement st = conn.createStatement();
@@ -21,9 +21,9 @@ public class ProduktuakDB {
                 lista.add(new Produktuak(
                         rs.getInt("id"),
                         rs.getString("izena"),
-                        rs.getInt("kategoria_id"),
+                    rs.getString("mota"),
                         rs.getDouble("prezioa"),
-                        rs.getInt("stock_aktuala")
+                    rs.getInt("stock")
                 ));
             }
         } catch (SQLException e) {
@@ -32,17 +32,16 @@ public class ProduktuakDB {
         return lista;
     }
 
-    
     public static int gehituProduktua(Produktuak p) {
-        String sql = "INSERT INTO produktuak (izena, kategoria_id, prezioa, stock_aktuala) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO produktuak (izena, mota, prezioa, stock) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = Conn.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, p.getIzena());
-            ps.setInt(2, p.getKategoriaId());
+            ps.setString(2, p.getMota());
             ps.setDouble(3, p.getPrezioa());
-            ps.setInt(4, p.getStockAktuala());
+            ps.setInt(4, p.getStock());
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
@@ -66,15 +65,15 @@ public class ProduktuakDB {
     }
 
     public static void eguneratuProduktua(Produktuak p) {
-        String sql = "UPDATE produktuak SET izena=?, kategoria_id=?, prezioa=?, stock_aktuala=? WHERE id=?";
+        String sql = "UPDATE produktuak SET izena=?, mota=?, prezioa=?, stock=? WHERE id=?";
 
         try (Connection conn = Conn.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, p.getIzena());
-            ps.setInt(2, p.getKategoriaId());
+            ps.setString(2, p.getMota());
             ps.setDouble(3, p.getPrezioa());
-            ps.setInt(4, p.getStockAktuala());
+            ps.setInt(4, p.getStock());
             ps.setInt(5, p.getId());
             ps.executeUpdate();
 
@@ -95,5 +94,23 @@ public class ProduktuakDB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<String> lortuMotak() {
+        List<String> motak = new ArrayList<>();
+        String sql = "SELECT DISTINCT mota FROM produktuak WHERE mota IS NOT NULL AND mota <> '' ORDER BY mota";
+
+        try (Connection conn = Conn.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            while (rs.next()) {
+                motak.add(rs.getString("mota"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return motak;
     }
 }

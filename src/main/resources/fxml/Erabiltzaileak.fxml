@@ -12,7 +12,7 @@
     <top>
         <ToolBar fx:id="toolbar">
             <Label text="Bilatu:"/>
-            <TextField fx:id="txtBuscar" promptText="Erabiltzailea edo emaila"/>
+            <TextField fx:id="txtBuscar" promptText="Izena edo erabiltzailea"/>
 
             <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituErabiltzailea"/>
             <Button fx:id="btnEdit" text="Editatu" onAction="#editatuErabiltzailea"/>
@@ -31,8 +31,11 @@
     <center>
         <TableView fx:id="erabiltzaileTable">
             <columns>
+                <TableColumn fx:id="colIzena" text="Izena" prefWidth="140"/>
+                <TableColumn fx:id="colAbizena" text="Abizena" prefWidth="150"/>
                 <TableColumn fx:id="colErabiltzailea" text="Erabiltzailea" prefWidth="150"/>
-                <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+                <TableColumn fx:id="colLangileKodea" text="Kodea" prefWidth="90"/>
+                <TableColumn fx:id="colRola" text="Rola" prefWidth="130"/>
                 <TableColumn fx:id="colPasahitza" text="Pasahitza" prefWidth="150"/>
                 <TableColumn fx:id="colEzabatua" text="Ezabatua" prefWidth="100"/>
                 <TableColumn fx:id="colChat" text="Chat" prefWidth="100"/>

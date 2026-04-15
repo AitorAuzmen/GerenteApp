@@ -20,23 +20,25 @@
                 <VBox spacing="15" styleClass="left-vbox">
 
                     <!-- Logo / título -->
-                    <Label text="JAUS" />
+                    <Label text="NovaFrame" />
 
                     <Label text="" style="-fx-padding: 10 0 0 0;" />
 
                     <!-- Botones laterales -->
                     <Button fx:id="btnProduktuak" text="Produktuak" prefWidth="180"
                             onAction="#kargatuProduktuak" styleClass="left-button" />
-                    <Button fx:id="btnKategoriak" text="Kategoriak" prefWidth="180"
-                            onAction="#kargatuKategoriak" styleClass="left-button" />
                     <Button fx:id="btnMahaiak" text="Mahaiak" prefWidth="180"
                             onAction="#kargatuMahaiak" styleClass="left-button" />
+                        <Button fx:id="btnErreserbak" text="Erreserbak" prefWidth="180"
+                            onAction="#kargatuErreserbak" styleClass="left-button" />
                     <Button fx:id="btnErabiltzaileak" text="Erabiltzaileak" prefWidth="180"
                             onAction="#kargatuErabiltzaileak" styleClass="left-button" />
                     <Button fx:id="btnRolak" text="Rolak" prefWidth="180"
                             onAction="#kargatuRolak" styleClass="left-button" />
                     <Button fx:id="btnOsagaiak" text="Osagaiak" prefWidth="180"
                             onAction="#kargatuOsagaiak" styleClass="left-button" />
+                        <Button fx:id="btnHornitzaileak" text="Hornitzaileak" prefWidth="180"
+                            onAction="#kargatuHornitzaileak" styleClass="left-button" />
 
                     <!-- Relleno para que la barra llegue abajo -->
                     <Pane VBox.vgrow="ALWAYS" />
@@ -50,7 +52,7 @@
     <center>
         <StackPane fx:id="contentArea">
             <Label text="Hemen agertuko da edukia (taulak, datuak, pantailak...)"
-                   style="-fx-font-size: 20px; -fx-text-fill: #555;" />
+                   styleClass="content-placeholder" />
         </StackPane>
     </center>
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="kontrola.ErreserbakController"
+            prefWidth="1280"
+            prefHeight="460">
+
+    <top>
+        <ToolBar>
+            <Label text="Bilatu:"/>
+            <TextField fx:id="txtBuscar" promptText="Bezeroa, telefonoa, mahaia edo langilea" prefWidth="280"/>
+
+            <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituErreserba"/>
+            <Button fx:id="btnEdit" text="Editatu" onAction="#editatuErreserba"/>
+            <Button fx:id="btnDelete" text="Ezabatu" onAction="#ezabatuErreserba"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <TableView fx:id="erreserbakTable">
+            <columns>
+                <TableColumn fx:id="colBezeroa" text="Bezeroa" prefWidth="170"/>
+                <TableColumn fx:id="colTelefonoa" text="Telefonoa" prefWidth="110"/>
+                <TableColumn fx:id="colPertsonak" text="Pertsonak" prefWidth="90"/>
+                <TableColumn fx:id="colData" text="Data eta ordua" prefWidth="150"/>
+                <TableColumn fx:id="colPrezioa" text="Prezioa" prefWidth="110"/>
+                <TableColumn fx:id="colFaktura" text="Faktura" prefWidth="180"/>
+                <TableColumn fx:id="colMahaia" text="Mahaia" prefWidth="180"/>
+                <TableColumn fx:id="colLangilea" text="Langilea" prefWidth="180"/>
+                <TableColumn fx:id="colOrdainduta" text="Ordainduta" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

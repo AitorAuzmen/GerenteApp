@@ -9,14 +9,14 @@ import java.util.List;
 
 public class ErabiltzaileakDB {
 
-    public Erabiltzailea login(String email, String pasahitza) {
+    public Erabiltzailea login(String erabiltzaileIzena, String pasahitza) {
         String sql = """
-            SELECT * FROM erabiltzaileak
-            WHERE email = ? AND pasahitza = ? AND ezabatua = 0
+            SELECT * FROM langileak
+            WHERE erabiltzaile_izena = ? AND pasahitza = ? AND ezabatua = 0
         """;
 
         try (PreparedStatement ps = Conn.getConnection().prepareStatement(sql)) {
-            ps.setString(1, email);
+            ps.setString(1, erabiltzaileIzena);
             ps.setString(2, pasahitza);
 
             ResultSet rs = ps.executeQuery();
@@ -33,7 +33,7 @@ public class ErabiltzaileakDB {
 
     public List<Erabiltzailea> getAll() {
         List<Erabiltzailea> lista = new ArrayList<>();
-        String sql = "SELECT * FROM erabiltzaileak";
+        String sql = "SELECT * FROM langileak ORDER BY id";
 
         try (PreparedStatement ps = Conn.getConnection().prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -50,17 +50,20 @@ public class ErabiltzaileakDB {
 
     public boolean insert(Erabiltzailea e) {
         String sql = """
-            INSERT INTO erabiltzaileak
-            (erabiltzailea, email, pasahitza, rola_id, ezabatua, chat)
-            VALUES (?, ?, ?, ?, 0, ?)
+            INSERT INTO langileak
+            (izena, abizena, erabiltzaile_izena, langile_kodea,
+             pasahitza, rola_id, ezabatua, chat)
+            VALUES (?, ?, ?, ?, ?, ?, 0, ?)
         """;
 
         try (PreparedStatement ps = Conn.getConnection().prepareStatement(sql)) {
-            ps.setString(1, e.getErabiltzailea());
-            ps.setString(2, e.getEmail());
-            ps.setString(3, e.getPasahitza());
-            ps.setInt(4, e.getRolaId());
-            ps.setBoolean(5, e.isChat());
+            ps.setString(1, e.getIzena());
+            ps.setString(2, e.getAbizena());
+            ps.setString(3, e.getErabiltzailea());
+            ps.setInt(4, e.getLangileKodea());
+            ps.setString(5, e.getPasahitza());
+            ps.setInt(6, e.getRolaId());
+            ps.setBoolean(7, e.isChat());
 
             return ps.executeUpdate() > 0;
 
@@ -72,19 +75,21 @@ public class ErabiltzaileakDB {
 
     public boolean update(Erabiltzailea e) {
         String sql = """
-            UPDATE erabiltzaileak SET
-            erabiltzailea = ?, email = ?, pasahitza = ?,
-            rola_id = ?, chat = ?
+            UPDATE langileak SET
+            izena = ?, abizena = ?, erabiltzaile_izena = ?,
+            langile_kodea = ?, pasahitza = ?, rola_id = ?, chat = ?
             WHERE id = ?
         """;
 
         try (PreparedStatement ps = Conn.getConnection().prepareStatement(sql)) {
-            ps.setString(1, e.getErabiltzailea());
-            ps.setString(2, e.getEmail());
-            ps.setString(3, e.getPasahitza());
-            ps.setInt(4, e.getRolaId());
-            ps.setBoolean(5, e.isChat());
-            ps.setInt(6, e.getId());
+            ps.setString(1, e.getIzena());
+            ps.setString(2, e.getAbizena());
+            ps.setString(3, e.getErabiltzailea());
+            ps.setInt(4, e.getLangileKodea());
+            ps.setString(5, e.getPasahitza());
+            ps.setInt(6, e.getRolaId());
+            ps.setBoolean(7, e.isChat());
+            ps.setInt(8, e.getId());
 
             return ps.executeUpdate() > 0;
 
@@ -95,7 +100,7 @@ public class ErabiltzaileakDB {
     }
 
     public boolean delete(int id) {
-        String sql = "UPDATE erabiltzaileak SET ezabatua = 1 WHERE id = ?";
+        String sql = "UPDATE langileak SET ezabatua = 1 WHERE id = ?";
 
         try (PreparedStatement ps = Conn.getConnection().prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -109,9 +114,22 @@ public class ErabiltzaileakDB {
 
     
     public boolean berreskuratu(int id) {
-        String sql = "UPDATE erabiltzaileak SET ezabatua = 0 WHERE id = ?";
+        String sql = "UPDATE langileak SET ezabatua = 0 WHERE id = ?";
         try (PreparedStatement ps = Conn.getConnection().prepareStatement(sql)) {
             ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean eguneratuChatEgoera(int id, boolean chat) {
+        String sql = "UPDATE langileak SET chat = ? WHERE id = ?";
+
+        try (PreparedStatement ps = Conn.getConnection().prepareStatement(sql)) {
+            ps.setBoolean(1, chat);
+            ps.setInt(2, id);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -122,8 +140,10 @@ public class ErabiltzaileakDB {
     private Erabiltzailea mapResultSet(ResultSet rs) throws SQLException {
         Erabiltzailea e = new Erabiltzailea();
         e.setId(rs.getInt("id"));
-        e.setErabiltzailea(rs.getString("erabiltzailea"));
-        e.setEmail(rs.getString("email"));
+        e.setIzena(rs.getString("izena"));
+        e.setAbizena(rs.getString("abizena"));
+        e.setErabiltzailea(rs.getString("erabiltzaile_izena"));
+        e.setLangileKodea(rs.getInt("langile_kodea"));
         e.setPasahitza(rs.getString("pasahitza"));
         e.setRolaId(rs.getInt("rola_id"));
         e.setEzabatua(rs.getBoolean("ezabatua"));

@@ -11,7 +11,7 @@ public class MahaiakDB {
 
     public static List<Mahaia> lortuMahaiak() {
         List<Mahaia> lista = new ArrayList<>();
-        String sql = "SELECT * FROM mahaiak";
+        String sql = "SELECT id, zenbakia, pertsona_kopurua AS kapazitatea, kokapena AS egoera FROM mahaiak";
 
         try (Connection c = Conn.getConnection();
              Statement st = c.createStatement();
@@ -34,7 +34,7 @@ public class MahaiakDB {
     }
 
     public static int gehituMahai(Mahaia m) {
-        String sql = "INSERT INTO mahaiak (zenbakia, kapazitatea, egoera) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO mahaiak (zenbakia, pertsona_kopurua, kokapena) VALUES (?, ?, ?)";
 
         try (Connection c = Conn.getConnection();
              PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -55,7 +55,7 @@ public class MahaiakDB {
     }
 
     public static void eguneratuMahai(Mahaia m) {
-        String sql = "UPDATE mahaiak SET zenbakia=?, kapazitatea=?, egoera=? WHERE id=?";
+        String sql = "UPDATE mahaiak SET zenbakia=?, pertsona_kopurua=?, kokapena=? WHERE id=?";
 
         try (Connection c = Conn.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {

@@ -15,7 +15,6 @@ public class OsagaiakController {
 
     @FXML private TableView<Osagaiak> table;
     @FXML private TableColumn<Osagaiak, String> colIzena;
-    @FXML private TableColumn<Osagaiak, String> colUnitatea;
     @FXML private TableColumn<Osagaiak, Double> colStock;
     @FXML private TextField txtBuscar;
 
@@ -28,16 +27,12 @@ public class OsagaiakController {
 
     @FXML
     public void initialize() {
-        
         colIzena.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getIzena()));
-        colUnitatea.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getUnitatea()));
-        colStock.setCellValueFactory(cell -> new javafx.beans.property.SimpleObjectProperty<>(cell.getValue().getStock_aktuala()));
+        colStock.setCellValueFactory(cell -> new javafx.beans.property.SimpleObjectProperty<>(cell.getValue().getStock()));
 
-        
         masterData = FXCollections.observableArrayList(OsagaiakDB.lortuGuztiak());
         filteredData = new FilteredList<>(masterData, p -> true);
 
-        
         txtBuscar.textProperty().addListener((obs, oldVal, newVal) -> {
             filteredData.setPredicate(osagaia -> {
                 if (newVal == null || newVal.isEmpty()) return true;
@@ -46,12 +41,10 @@ public class OsagaiakController {
             });
         });
 
-        
         SortedList<Osagaiak> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(table.comparatorProperty());
         table.setItems(sortedData);
 
-        
         table.setRowFactory(tv -> {
             TableRow<Osagaiak> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -62,11 +55,9 @@ public class OsagaiakController {
             return row;
         });
 
-        
         btnEdit.setDisable(true);
         btnDelete.setDisable(true);
 
-        
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
             boolean seleccionado = newSel != null;
             btnEdit.setDisable(!seleccionado);
@@ -74,15 +65,15 @@ public class OsagaiakController {
         });
     }
 
-
-
-
     @FXML
     private void gehituOsagaia() {
         Osagaiak o = OsagaiakFormController.openForm(null);
         if (o != null) {
-            OsagaiakDB.insert(o);
-            masterData.add(o);
+            if (OsagaiakDB.insert(o)) {
+                masterData.setAll(OsagaiakDB.lortuGuztiak());
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Ezin izan da osagaia gorde.").showAndWait();
+            }
         }
     }
 
@@ -92,8 +83,12 @@ public class OsagaiakController {
         if (seleccionado != null) {
             Osagaiak o = OsagaiakFormController.openForm(seleccionado);
             if (o != null) {
-                OsagaiakDB.update(o);
-                table.refresh();
+                if (OsagaiakDB.update(o)) {
+                    masterData.setAll(OsagaiakDB.lortuGuztiak());
+                    table.refresh();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Ezin izan da osagaia eguneratu.").showAndWait();
+                }
             }
         } else {
             new Alert(Alert.AlertType.WARNING, "Mesedez, hautatu osagaia editatzeko.").showAndWait();

@@ -4,29 +4,27 @@ public class Produktuak {
 
     private int id;
     private String izena;
-    private int kategoriaId;
+    private String mota;
     private double prezioa;
-    private int stockAktuala;
+    private int stock;
 
-    public Produktuak(int id, String izena, int kategoriaId, double prezioa, int stockAktuala) {
+    public Produktuak(int id, String izena, String mota, double prezioa, int stock) {
         this.id = id;
         this.izena = izena;
-        this.kategoriaId = kategoriaId;
+        this.mota = mota;
         this.prezioa = prezioa;
-        this.stockAktuala = stockAktuala;
+        this.stock = stock;
     }
 
-    
     public int getId() { return id; }
     public String getIzena() { return izena; }
-    public int getKategoriaId() { return kategoriaId; }
+    public String getMota() { return mota; }
     public double getPrezioa() { return prezioa; }
-    public int getStockAktuala() { return stockAktuala; }
+    public int getStock() { return stock; }
 
-    
     public void setId(int id) { this.id = id; } 
     public void setIzena(String izena) { this.izena = izena; }
-    public void setKategoriaId(int kategoriaId) { this.kategoriaId = kategoriaId; }
+    public void setMota(String mota) { this.mota = mota; }
     public void setPrezioa(double prezioa) { this.prezioa = prezioa; }
-    public void setStockAktuala(int stockAktuala) { this.stockAktuala = stockAktuala; }
+    public void setStock(int stock) { this.stock = stock; }
 }

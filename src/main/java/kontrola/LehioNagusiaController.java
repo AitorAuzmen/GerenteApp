@@ -28,11 +28,6 @@ public class LehioNagusiaController {
     }
 
     @FXML
-    public void kargatuKategoriak() {
-        cargarVista("/fxml/kategoriak.fxml", "Kategoriak");
-    }
-
-    @FXML
     public void kargatuMahaiak() {
         cargarVista("/fxml/mahaiak.fxml", "Mahaiak");
     }
@@ -45,6 +40,16 @@ public class LehioNagusiaController {
     @FXML
     public void kargatuOsagaiak() {
         cargarVista("/fxml/osagaiak.fxml", "Osagaiak");
+    }
+
+    @FXML
+    public void kargatuHornitzaileak() {
+        cargarVista("/fxml/Hornitzaileak.fxml", "Hornitzaileak");
+    }
+
+    @FXML
+    public void kargatuErreserbak() {
+        cargarVista("/fxml/Erreserbak.fxml", "Erreserbak");
     }
 
     

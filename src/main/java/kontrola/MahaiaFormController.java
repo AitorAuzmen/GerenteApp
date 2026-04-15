@@ -19,10 +19,10 @@ public class MahaiaFormController {
 
     @FXML
     public void initialize() {
-        
         cmbEgoera.setItems(FXCollections.observableArrayList(
-                "libre", "okupatuta", "ordainketa_pendiente"
+                "barruan", "terraza", "kanpoan"
         ));
+        cmbEgoera.setEditable(true);
     }
 
     public void setMahai(Mahaia m) {

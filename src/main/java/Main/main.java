@@ -14,12 +14,12 @@ public class main extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login-view.fxml"));
             Parent root = loader.load();
 
-            Scene scene = new Scene(root, 600, 450);
+            Scene scene = new Scene(root, 920, 540);
 
             
             scene.getStylesheets().add(getClass().getResource("/css/estilo.css").toExternalForm());
 
-            primaryStage.setTitle("JAUS - Login");
+                        primaryStage.setTitle("NovaFrame - Login");
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
             primaryStage.show();

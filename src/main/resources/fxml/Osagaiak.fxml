@@ -25,9 +25,8 @@
     <center>
         <TableView fx:id="table" prefHeight="300">
             <columns>
-                <TableColumn fx:id="colIzena" text="Izena" prefWidth="200"/>
-                <TableColumn fx:id="colUnitatea" text="Unitatea" prefWidth="150"/>
-                <TableColumn fx:id="colStock" text="Stock Aktuala" prefWidth="150"/>
+                <TableColumn fx:id="colIzena" text="Izena" prefWidth="260"/>
+                <TableColumn fx:id="colStock" text="Stock" prefWidth="200"/>
             </columns>
         </TableView>
     </center>

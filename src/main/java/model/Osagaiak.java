@@ -3,16 +3,16 @@ package model;
 public class Osagaiak {
     private int id;
     private String izena;
-    private String unitatea;
-    private double stock_aktuala;
+    private double stock;
+    private int hornitzaileId;
+    private String hornitzaileIzena;
 
     public Osagaiak() {}
 
-    public Osagaiak(int id, String izena, String unitatea, double stock_aktuala) {
+    public Osagaiak(int id, String izena, double stock) {
         this.id = id;
         this.izena = izena;
-        this.unitatea = unitatea;
-        this.stock_aktuala = stock_aktuala;
+        this.stock = stock;
     }
 
     public int getId() {
@@ -31,20 +31,43 @@ public class Osagaiak {
         this.izena = izena;
     }
 
-    public String getUnitatea() {
-        return unitatea;
+    public double getStock() {
+        return stock;
     }
 
-    public void setUnitatea(String unitatea) {
-        this.unitatea = unitatea;
+    public void setStock(double stock) {
+        this.stock = stock;
     }
 
     public double getStock_aktuala() {
-        return stock_aktuala;
+        return stock;
     }
 
     public void setStock_aktuala(double stock_aktuala) {
-        this.stock_aktuala = stock_aktuala;
+        this.stock = stock_aktuala;
+    }
+
+    public String getUnitatea() {
+        return "unitate";
+    }
+
+    public void setUnitatea(String unitatea) {
+    }
+
+    public int getHornitzaileId() {
+        return hornitzaileId;
+    }
+
+    public void setHornitzaileId(int hornitzaileId) {
+        this.hornitzaileId = hornitzaileId;
+    }
+
+    public String getHornitzaileIzena() {
+        return hornitzaileIzena;
+    }
+
+    public void setHornitzaileIzena(String hornitzaileIzena) {
+        this.hornitzaileIzena = hornitzaileIzena;
     }
 
     @Override
@@ -52,8 +75,9 @@ public class Osagaiak {
         return "Osagaiak{" +
                 "id=" + id +
                 ", izena='" + izena + '\'' +
-                ", unitatea='" + unitatea + '\'' +
-                ", stock_aktuala=" + stock_aktuala +
+                ", stock=" + stock +
+                ", hornitzaileId=" + hornitzaileId +
+                ", hornitzaileIzena='" + hornitzaileIzena + '\'' +
                 '}';
     }
 }

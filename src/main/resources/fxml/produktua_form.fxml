@@ -18,8 +18,8 @@
         <Label text="Izena:"/>
         <TextField fx:id="txtIzena"/>
 
-        <Label text="Kategoria:" GridPane.rowIndex="1"/>
-        <ComboBox fx:id="cmbKategoria" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="Mota:" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="cmbMota" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
         <Label text="Prezioa:" GridPane.rowIndex="2"/>
         <TextField fx:id="txtPrezioa" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
@@ -39,7 +39,6 @@
             <columns>
                 <TableColumn fx:id="colOsagaiaIzena" text="Osagaia"/>
                 <TableColumn fx:id="colKantitatea" text="Kantitatea"/>
-                <TableColumn fx:id="colUnitatea" text="Unitatea"/>
             </columns>
         </TableView>
 

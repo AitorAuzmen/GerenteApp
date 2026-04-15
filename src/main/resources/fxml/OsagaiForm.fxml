@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="kontrola.OsagaiakFormController"
-            prefWidth="350" prefHeight="200">
+            prefWidth="350" prefHeight="250">
     <VBox spacing="10">
         <padding>
             <Insets top="10" right="10" bottom="10" left="10"/>
@@ -14,11 +14,11 @@
         <Label text="Izena:"/>
         <TextField fx:id="txtIzena" promptText="Sartu izena"/>
 
-        <Label text="Unitatea:"/>
-        <TextField fx:id="txtUnitatea" promptText="Sartu unitatea"/>
-
-        <Label text="Stock Aktuala:"/>
+        <Label text="Stock:"/>
         <TextField fx:id="txtStock" promptText="Sartu stock-a"/>
+
+        <Label text="Hornitzailea:"/>
+        <ComboBox fx:id="cmbHornitzailea" promptText="Hautatu hornitzailea" prefWidth="320"/>
 
         <HBox spacing="10" alignment="CENTER_RIGHT">
             <Button fx:id="btnGorde" text="Gorde" onAction="#gordeOsagaia"/>

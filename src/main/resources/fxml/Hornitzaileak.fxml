@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="kontrola.HornitzaileakController"
+            prefWidth="760"
+            prefHeight="420">
+
+    <top>
+        <ToolBar>
+            <Label text="Bilatu:"/>
+            <TextField fx:id="txtBuscar" promptText="Izena, kontaktua edo helbidea" prefWidth="240"/>
+
+            <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituHornitzailea"/>
+            <Button fx:id="btnEdit" text="Editatu" onAction="#editatuHornitzailea"/>
+            <Button fx:id="btnDelete" text="Ezabatu" onAction="#ezabatuHornitzailea"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <TableView fx:id="hornitzaileakTable">
+            <columns>
+                <TableColumn fx:id="colIzena" text="Izena" prefWidth="180"/>
+                <TableColumn fx:id="colKontaktua" text="Kontaktua" prefWidth="180"/>
+                <TableColumn fx:id="colHelbidea" text="Helbidea" prefWidth="360"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

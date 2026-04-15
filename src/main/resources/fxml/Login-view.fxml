@@ -1,67 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.geometry.Insets?>
 
-<Pane prefHeight="450.0" prefWidth="600.0"
-      style="-fx-background-color: #E67E22;"
-      xmlns="http://javafx.com/javafx/25"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="kontrola.LoginController">
+<BorderPane prefHeight="540.0"
+            prefWidth="920.0"
+            styleClass="login-root"
+            xmlns="http://javafx.com/javafx/22.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="kontrola.LoginController">
 
-    <children>
-
-
-        <VBox alignment="CENTER" spacing="20"
-              layoutX="175" layoutY="100"
-              prefWidth="250"
-              style="-fx-background-color: #ffffff;
-                     -fx-background-radius: 15;
-                     -fx-border-radius: 15;
-                     -fx-padding: 25;
-                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10,0,0,0);">
-
+    <center>
+        <StackPane styleClass="login-layout">
             <children>
+                <HBox maxWidth="760.0" styleClass="login-card-shell">
+                    <children>
+                        <StackPane prefWidth="320.0" styleClass="login-showcase">
+                            <children>
+                                <Pane mouseTransparent="true" pickOnBounds="false">
+                                    <children>
+                                        <Region prefWidth="240.0" prefHeight="240.0" translateX="-92.0" translateY="-148.0" styleClass="login-orb login-orb-top" />
+                                        <Region prefWidth="280.0" prefHeight="280.0" translateX="-146.0" translateY="126.0" styleClass="login-orb login-orb-bottom" />
+                                        <Region prefWidth="170.0" prefHeight="170.0" translateX="120.0" translateY="-168.0" styleClass="login-orb login-orb-side" />
+                                    </children>
+                                </Pane>
 
+                                <VBox alignment="CENTER" spacing="12.0">
+                                    <children>
+                                        <ImageView fitHeight="128.0" preserveRatio="true" smooth="true" styleClass="login-logo-image">
+                                            <image>
+                                                <Image url="@../img/NovaFrameLabs-clean.png" />
+                                            </image>
+                                        </ImageView>
 
-                <Label text="JAUS" style="-fx-text-fill: #3F7AE0; -fx-font-weight: bold;">
-                    <font>
-                        <Font size="28"/>
-                    </font>
-                </Label>
+                                        <Label text="NovaFrame" styleClass="login-brand">
+                                            <font>
+                                                <Font size="28.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </StackPane>
 
+                        <VBox alignment="CENTER_LEFT" prefWidth="440.0" spacing="16.0" styleClass="login-form-shell">
+                            <children>
+                                <Label text="Saioa hasi" styleClass="login-form-title" />
 
-                <TextField fx:id="txtErabiltzailea"
-                           promptText="Erabiltzailea"
-                           prefWidth="220"
-                           style="-fx-background-radius: 5;
-                                  -fx-border-radius: 5;
-                                  -fx-border-color: #cccccc;"/>
+                                <VBox alignment="CENTER_LEFT" spacing="8.0" maxWidth="290.0">
+                                    <children>
+                                        <Label text="Erabiltzailea" styleClass="login-field-label" />
+                                        <TextField fx:id="txtErabiltzailea"
+                                                   promptText="Idatzi erabiltzaile izena"
+                                                   prefWidth="290.0"
+                                                   styleClass="login-input" />
+                                    </children>
+                                </VBox>
 
+                                <VBox alignment="CENTER_LEFT" spacing="8.0" maxWidth="290.0">
+                                    <children>
+                                        <Label text="Pasahitza" styleClass="login-field-label" />
+                                        <PasswordField fx:id="txtPasahitza"
+                                                       promptText="Idatzi pasahitza"
+                                                       prefWidth="290.0"
+                                                       styleClass="login-input" />
+                                    </children>
+                                </VBox>
 
-                <PasswordField fx:id="txtPasahitza"
-                               promptText="Pasahitza"
-                               prefWidth="220"
-                               style="-fx-background-radius: 5;
-                                      -fx-border-radius: 5;
-                                      -fx-border-color: #cccccc;"/>
-
-
-                <Button fx:id="btnSaioaHasi"
-                        text="Saioa Hasi"
-                        prefWidth="150"
-                        onAction="#saioaHasi"
-                        style="-fx-background-color: #E67E22;
-                               -fx-text-fill: white;
-                               -fx-background-radius: 5;
-                               -fx-padding: 8 20;"/>
-
+                                <Button fx:id="btnSaioaHasi"
+                                        text="Saioa Hasi"
+                                        prefWidth="290.0"
+                                        onAction="#saioaHasi"
+                                        styleClass="login-button" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
             </children>
+        </StackPane>
+    </center>
 
-        </VBox>
-
-    </children>
-
-</Pane>
+</BorderPane>

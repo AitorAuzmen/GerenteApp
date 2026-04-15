@@ -1,6 +1,5 @@
 package kontrola;
 
-import DatuBasea.KategoriakDB;
 import DatuBasea.OsagaiakDB;
 import DatuBasea.ProduktuOsagaiakDB;
 import DatuBasea.ProduktuakDB;
@@ -18,17 +17,13 @@ import model.ProduktuOsagaia;
 import model.Produktuak;
 
 import java.util.List;
-import java.util.Map;
-
-import model.Erabiltzailea;
-import kontrola.LoginController;
 
 public class ProduktuaFormController {
 
     @FXML private TextField txtIzena, txtPrezioa, txtStock, txtBilatuOsagaia;
-    @FXML private ComboBox<String> cmbKategoria;
+    @FXML private ComboBox<String> cmbMota;
     @FXML private TableView<ProduktuOsagaia> osagaiTaula;
-    @FXML private TableColumn<ProduktuOsagaia, String> colOsagaiaIzena, colUnitatea;
+    @FXML private TableColumn<ProduktuOsagaia, String> colOsagaiaIzena;
     @FXML private TableColumn<ProduktuOsagaia, Double> colKantitatea;
 
     private final ObservableList<ProduktuOsagaia> osagaiak = FXCollections.observableArrayList();
@@ -40,31 +35,20 @@ public class ProduktuaFormController {
         if (p != null) {
             txtIzena.setText(p.getIzena());
             txtPrezioa.setText(String.valueOf(p.getPrezioa()));
-            txtStock.setText(String.valueOf(p.getStockAktuala()));
+            txtStock.setText(String.valueOf(p.getStock()));
             osagaiak.setAll(ProduktuOsagaiakDB.lortuProduktukoOsagaiak(p.getId()));
-
-            Map<Integer, String> mapa = KategoriakDB.lortuKategoriakMap();
-            cmbKategoria.setValue(mapa.get(p.getKategoriaId()));
+            cmbMota.setValue(p.getMota());
         }
-        // Stock nunca editable
         txtStock.setEditable(false);
     }
 
     @FXML
     public void initialize() {
         osagaiTaula.setEditable(true);
-        // Stock nunca editable
         txtStock.setEditable(false);
+        cmbMota.setItems(FXCollections.observableArrayList(ProduktuakDB.lortuMotak()));
+        cmbMota.setEditable(true);
 
-        
-        
-        
-        cmbKategoria.setItems(FXCollections.observableArrayList(KategoriakDB.lortuKategoriakMap().values()));
-
-
-        
-        
-        
         List<Osagaiak> guztiak = OsagaiakDB.lortuGuztiak();
         ObservableList<String> osagaiIzenaLista = FXCollections.observableArrayList();
         for (Osagaiak o : guztiak) osagaiIzenaLista.add(o.getIzena());
@@ -78,7 +62,6 @@ public class ProduktuaFormController {
 
             for (Osagaiak o : guztiak) {
                 if (o.getIzena().equalsIgnoreCase(izenaBerria)) {
-                    po.setUnitatea(o.getUnitatea());
                     po.setOsagaiaId(o.getId());
                     break;
                 }
@@ -90,11 +73,6 @@ public class ProduktuaFormController {
         colKantitatea.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
         colKantitatea.setOnEditCommit(e -> e.getRowValue().setKantitatea(e.getNewValue()));
 
-        colUnitatea.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(c.getValue().getUnitatea()));
-
-        
-        
-        
         filtratua = new FilteredList<>(osagaiak, po -> true);
         osagaiTaula.setItems(filtratua);
 
@@ -110,8 +88,7 @@ public class ProduktuaFormController {
 
     @FXML
     private void gehituOsagaia() {
-        
-        osagaiak.add(new ProduktuOsagaia(0, 0, "", 1.0, ""));
+        osagaiak.add(new ProduktuOsagaia(0, 0, "", 1.0, 0.0));
     }
 
     @FXML
@@ -127,25 +104,20 @@ public class ProduktuaFormController {
             osagaiTaula.edit(-1, null);
         }
 
-        String izenaKategoria = cmbKategoria.getValue();
-        int kategoriaId = -1;
-
-        for (Map.Entry<Integer, String> e : KategoriakDB.lortuKategoriakMap().entrySet()) {
-            if (e.getValue().trim().equalsIgnoreCase(izenaKategoria.trim())) {
-                kategoriaId = e.getKey();
-                break;
-            }
+        String mota = cmbMota.getEditor().getText().trim();
+        if (mota.isEmpty()) {
+            mota = cmbMota.getValue();
         }
 
-        if (kategoriaId == -1) {
-            new Alert(Alert.AlertType.ERROR, "Kategoria ez da existitzen: " + izenaKategoria).showAndWait();
+        if (mota == null || mota.isBlank()) {
+            new Alert(Alert.AlertType.ERROR, "Produktuaren mota sartu behar duzu.").showAndWait();
             return;
         }
 
         Produktuak p = new Produktuak(
                 editatzen == null ? 0 : editatzen.getId(),
                 txtIzena.getText(),
-                kategoriaId,
+                mota,
                 Double.parseDouble(txtPrezioa.getText()),
                 Integer.parseInt(txtStock.getText())
         );

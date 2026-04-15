@@ -1,26 +1,51 @@
 package kontrola;
 
+import DatuBasea.HornitzaileakDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+import model.Hornitzailea;
 import model.Osagaiak;
 
 import java.io.IOException;
+import java.util.List;
 
 public class OsagaiakFormController {
-
     @FXML private TextField txtIzena;
-    @FXML private TextField txtUnitatea;
     @FXML private TextField txtStock;
+    @FXML private ComboBox<Hornitzailea> cmbHornitzailea;
     @FXML private Button btnGorde;
     @FXML private Button btnUtzi;
 
     private Osagaiak osagaia;
+
+    @FXML
+    private void initialize() {
+        cmbHornitzailea.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Hornitzailea hornitzailea) {
+                return hornitzailea == null ? "" : hornitzailea.getIzena();
+            }
+
+            @Override
+            public Hornitzailea fromString(String string) {
+                return null;
+            }
+        });
+
+        List<Hornitzailea> hornitzaileak = HornitzaileakDB.lortuGuztiak();
+        cmbHornitzailea.getItems().setAll(hornitzaileak);
+        if (!hornitzaileak.isEmpty()) {
+            cmbHornitzailea.getSelectionModel().selectFirst();
+        }
+    }
 
     public static Osagaiak openForm(Osagaiak o) {
         try {
@@ -47,8 +72,8 @@ public class OsagaiakFormController {
         this.osagaia = o;
         if (o != null) {
             txtIzena.setText(o.getIzena());
-            txtUnitatea.setText(o.getUnitatea());
-            txtStock.setText(String.valueOf(o.getStock_aktuala()));
+            txtStock.setText(String.valueOf(o.getStock()));
+            hautatuHornitzailea(o.getHornitzaileId());
         }
     }
 
@@ -60,14 +85,21 @@ public class OsagaiakFormController {
     private void gordeOsagaia() {
         if (osagaia == null) osagaia = new Osagaiak();
 
-        osagaia.setIzena(txtIzena.getText());
-        osagaia.setUnitatea(txtUnitatea.getText());
-        try {
-            osagaia.setStock_aktuala(Double.parseDouble(txtStock.getText()));
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.WARNING, "Stock aktuala zenbaki balioduna izan behar da.").showAndWait();
+        Hornitzailea hornitzailea = cmbHornitzailea.getSelectionModel().getSelectedItem();
+        if (hornitzailea == null) {
+            new Alert(Alert.AlertType.WARNING, "Lehenengo hornitzaile bat sortu edo hautatu behar duzu.").showAndWait();
             return;
         }
+
+        osagaia.setIzena(txtIzena.getText());
+        try {
+            osagaia.setStock(Double.parseDouble(txtStock.getText()));
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.WARNING, "Stock zenbaki balioduna izan behar da.").showAndWait();
+            return;
+        }
+        osagaia.setHornitzaileId(hornitzailea.getId());
+        osagaia.setHornitzaileIzena(hornitzailea.getIzena());
 
         btnGorde.getScene().getWindow().hide();
     }
@@ -75,5 +107,18 @@ public class OsagaiakFormController {
     @FXML
     private void itxi() {
         btnUtzi.getScene().getWindow().hide();
+    }
+
+    private void hautatuHornitzailea(int hornitzaileId) {
+        if (hornitzaileId <= 0) {
+            return;
+        }
+
+        for (Hornitzailea hornitzailea : cmbHornitzailea.getItems()) {
+            if (hornitzailea.getId() == hornitzaileId) {
+                cmbHornitzailea.getSelectionModel().select(hornitzailea);
+                return;
+            }
+        }
     }
 }

@@ -65,7 +65,7 @@ public class LoginController {
             scene.getStylesheets().add(getClass().getResource("/css/estilo.css").toExternalForm());
 
             Stage stage = new Stage();
-            stage.setTitle("JAUS - Leiho Nagusia");
+            stage.setTitle("NovaFrame - Leiho Nagusia");
             stage.setScene(scene);
 
 

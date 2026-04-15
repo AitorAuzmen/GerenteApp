@@ -20,8 +20,8 @@
 
             <Separator orientation="VERTICAL"/>
 
-            <Label text="Filtratu kategoria:"/>
-            <ComboBox fx:id="cmbKategoriak" prefWidth="150"/>
+            <Label text="Filtratu mota:"/>
+            <ComboBox fx:id="cmbMotak" prefWidth="150"/>
         </ToolBar>
     </top>
 
@@ -29,7 +29,7 @@
         <TableView fx:id="produktuTable">
             <columns>
                 <TableColumn fx:id="colIzena" text="Izena" prefWidth="250"/>
-                <TableColumn fx:id="colKategoria" text="Kategoria" prefWidth="150"/>
+                <TableColumn fx:id="colMota" text="Mota" prefWidth="150"/>
                 <TableColumn fx:id="colPrezioa" text="Prezioa" prefWidth="100"/>
                 <TableColumn fx:id="colStock" text="Stock" prefWidth="100"/>
             </columns>

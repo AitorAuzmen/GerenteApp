@@ -1,6 +1,5 @@
 package kontrola;
 
-import DatuBasea.KategoriakDB;
 import DatuBasea.ProduktuakDB;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,48 +15,38 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Produktuak;
 
-import java.util.Map;
-
 public class ProduktuakController {
 
     @FXML private TableView<Produktuak> produktuTable;
     @FXML private TableColumn<Produktuak, String> colIzena;
-    @FXML private TableColumn<Produktuak, Integer> colKategoria;
+    @FXML private TableColumn<Produktuak, String> colMota;
     @FXML private TableColumn<Produktuak, Double> colPrezioa;
     @FXML private TableColumn<Produktuak, Integer> colStock;
 
     @FXML private TextField txtBilatu;
-    @FXML private ComboBox<String> cmbKategoriak;
+    @FXML private ComboBox<String> cmbMotak;
 
     @FXML private Button btnAdd, btnEdit, btnDelete;
 
     private ObservableList<Produktuak> produktuak;
     private FilteredList<Produktuak> filtratua;
-    private Map<Integer, String> kategoriakMapa;
 
     @FXML
     public void initialize() {
-
-        
         colIzena.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getIzena()));
-        colKategoria.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getKategoriaId()));
+        colMota.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getMota()));
         colPrezioa.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getPrezioa()));
-        colStock.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getStockAktuala()));
+        colStock.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getStock()));
 
-        
         produktuak = FXCollections.observableArrayList(ProduktuakDB.lortuProduktuak());
         filtratua = new FilteredList<>(produktuak, p -> true);
         produktuTable.setItems(filtratua);
 
-        
-        kategoriakMapa = KategoriakDB.lortuKategoriakMap();
-        cmbKategoriak.getItems().setAll(kategoriakMapa.values());
+        cmbMotak.getItems().setAll(ProduktuakDB.lortuMotak());
 
-        
         txtBilatu.textProperty().addListener((obs, old, val) -> aplikatuFiltro());
-        cmbKategoriak.valueProperty().addListener((obs, old, val) -> aplikatuFiltro());
+        cmbMotak.valueProperty().addListener((obs, old, val) -> aplikatuFiltro());
 
-        
         produktuTable.setRowFactory(tv -> {
             TableRow<Produktuak> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -69,27 +58,21 @@ public class ProduktuakController {
             return row;
         });
 
-        
         produktuTable.getSelectionModel().selectedItemProperty()
                 .addListener((obs, old, val) -> actualizarBotones());
 
-        actualizarBotones(); 
+        actualizarBotones();
     }
 
     private void aplikatuFiltro() {
         String testua = txtBilatu.getText().toLowerCase();
-        String kategoriaIzena = cmbKategoriak.getValue();
+        String mota = cmbMotak.getValue();
 
         filtratua.setPredicate(p -> {
             boolean testuaOndo = testua.isEmpty() || p.getIzena().toLowerCase().contains(testua);
-            boolean kategoriaOndo = true;
+            boolean motaOndo = mota == null || mota.equals(p.getMota());
 
-            if (kategoriaIzena != null) {
-                String produktuaKategoria = kategoriakMapa.get(p.getKategoriaId());
-                kategoriaOndo = kategoriaIzena.equals(produktuaKategoria);
-            }
-
-            return testuaOndo && kategoriaOndo;
+            return testuaOndo && motaOndo;
         });
     }
 

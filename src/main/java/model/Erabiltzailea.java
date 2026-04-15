@@ -4,8 +4,10 @@ package model;
 public class Erabiltzailea {
 
     private int id;
+    private String izena;
+    private String abizena;
     private String erabiltzailea;
-    private String email;
+    private int langileKodea;
     private String pasahitza;
     private int rolaId;
     private boolean ezabatua;
@@ -13,12 +15,15 @@ public class Erabiltzailea {
 
     public Erabiltzailea() {}
 
-    public Erabiltzailea(int id, String erabiltzailea, String email,
+    public Erabiltzailea(int id, String izena, String abizena,
+                         String erabiltzailea, int langileKodea,
                          String pasahitza, int rolaId,
                          boolean ezabatua, boolean chat) {
         this.id = id;
+        this.izena = izena;
+        this.abizena = abizena;
         this.erabiltzailea = erabiltzailea;
-        this.email = email;
+        this.langileKodea = langileKodea;
         this.pasahitza = pasahitza;
         this.rolaId = rolaId;
         this.ezabatua = ezabatua;
@@ -34,11 +39,17 @@ public class Erabiltzailea {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
+    public String getIzena() { return izena; }
+    public void setIzena(String izena) { this.izena = izena; }
+
+    public String getAbizena() { return abizena; }
+    public void setAbizena(String abizena) { this.abizena = abizena; }
+
     public String getErabiltzailea() { return erabiltzailea; }
     public void setErabiltzailea(String erabiltzailea) { this.erabiltzailea = erabiltzailea; }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public int getLangileKodea() { return langileKodea; }
+    public void setLangileKodea(int langileKodea) { this.langileKodea = langileKodea; }
 
     public String getPasahitza() { return pasahitza; }
     public void setPasahitza(String pasahitza) { this.pasahitza = pasahitza; }

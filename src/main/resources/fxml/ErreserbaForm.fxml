@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="kontrola.ErreserbaFormController"
+            prefWidth="560"
+            prefHeight="320"
+            styleClass="dialog-form-root">
+
+    <center>
+        <GridPane hgap="14" vgap="10" styleClass="dialog-form-grid">
+            <padding>
+                <Insets top="18" right="18" bottom="14" left="18"/>
+            </padding>
+
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+                <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <children>
+                <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <children>
+                        <Label text="Bezeroaren izena:"/>
+                        <TextField fx:id="txtBezeroIzena" promptText="Sartu bezeroaren izena"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <children>
+                        <Label text="Telefonoa:"/>
+                        <TextField fx:id="txtTelefonoa" promptText="9 digituko telefonoa"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <children>
+                        <Label text="Pertsona kopurua:"/>
+                        <TextField fx:id="txtPertsonaKopurua" promptText="Sartu pertsona kopurua"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <Label text="Eguna:"/>
+                        <DatePicker fx:id="dpEguna"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                    <children>
+                        <Label text="Ordua:"/>
+                        <TextField fx:id="txtOrdua" promptText="HH:mm"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <children>
+                        <Label text="Prezio totala:"/>
+                        <TextField fx:id="txtPrezioTotala" promptText="Aukerakoa"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                    <children>
+                        <Label text="Langilea:"/>
+                        <ComboBox fx:id="cmbLangilea" promptText="Hautatu langilea" maxWidth="1.7976931348623157E308"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <children>
+                        <Label text="Mahaia:"/>
+                        <ComboBox fx:id="cmbMahaia" promptText="Hautatu mahaia" maxWidth="1.7976931348623157E308"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">
+                    <children>
+                        <Label text="Fakturaren ruta:"/>
+                        <TextField fx:id="txtFakturaRuta" promptText="Aukerakoa"/>
+                    </children>
+                </VBox>
+
+                <CheckBox fx:id="chkOrdainduta" text="Ordainduta" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"/>
+            </children>
+        </GridPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_RIGHT" styleClass="dialog-form-actions">
+            <padding>
+                <Insets top="0" right="18" bottom="18" left="18"/>
+            </padding>
+            <children>
+                <Button text="Utzi" onAction="#itxi"/>
+                <Button text="Gorde" onAction="#gordeErreserba" defaultButton="true"/>
+            </children>
+        </HBox>
+    </bottom>
+
+</BorderPane>

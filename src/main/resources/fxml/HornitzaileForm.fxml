@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="kontrola.HornitzaileFormController"
+            prefWidth="360" prefHeight="220">
+    <VBox spacing="10">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <Label text="Izena:"/>
+        <TextField fx:id="txtIzena" promptText="Sartu hornitzailearen izena"/>
+
+        <Label text="Kontaktua:"/>
+        <TextField fx:id="txtKontaktua" promptText="Telefonoa edo emaila"/>
+
+        <Label text="Helbidea:"/>
+        <TextField fx:id="txtHelbidea" promptText="Sartu helbidea"/>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Gorde" onAction="#gordeHornitzailea"/>
+            <Button text="Utzi" onAction="#itxi"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
