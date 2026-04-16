@@ -119,29 +119,25 @@
 }
 
 .login-root {
-    -fx-background-color: #F9FAFB;
+    -fx-background-color: #FFFFFF;
 }
 
-.login-layout {
-    -fx-padding: 28 30;
-}
-
-.login-card-shell {
-    -fx-background-color: transparent;
-    -fx-background-radius: 30;
-    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.14), 28, 0.12, 0, 10);
+.login-split-shell {
+    -fx-background-color: #FFFFFF;
 }
 
 .login-showcase {
     -fx-background-color: linear-gradient(to bottom right, #6EC6FF, #4E8EF7 56%, #6366F1);
-    -fx-background-radius: 30 0 0 30;
-    -fx-padding: 28 24 28 24;
+    -fx-padding: 24 20 24 20;
+}
+
+.login-form-panel {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 0 52 0 52;
 }
 
 .login-form-shell {
-    -fx-background-color: #FFFFFF;
-    -fx-background-radius: 0 30 30 0;
-    -fx-padding: 44 42 42 42;
+    -fx-padding: 0;
 }
 
 .login-orb {
@@ -149,15 +145,19 @@
 }
 
 .login-orb-top {
-    -fx-background-color: rgba(255,255,255,0.16);
+    -fx-background-color: rgba(255,255,255,0.12);
 }
 
 .login-orb-bottom {
-    -fx-background-color: rgba(59,130,246,0.28);
+    -fx-background-color: rgba(37,99,235,0.18);
 }
 
 .login-orb-side {
-    -fx-background-color: rgba(255,255,255,0.14);
+    -fx-background-color: rgba(255,255,255,0.10);
+}
+
+.login-brand-shell {
+    -fx-translate-y: 14;
 }
 
 .header-logo-shell {
@@ -183,49 +183,55 @@
 .login-brand {
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(30,41,59,0.14), 10, 0.12, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(30,41,59,0.12), 10, 0.12, 0, 2);
 }
 
 .login-form-title {
-    -fx-text-fill: #2563EB;
+    -fx-text-fill: #1E3A8A;
     -fx-font-size: 28px;
     -fx-font-weight: bold;
+    -fx-padding: 0 0 6 0;
 }
 
 .login-field-label {
-    -fx-text-fill: #334155;
-    -fx-font-size: 12px;
+    -fx-text-fill: #1E293B;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
 
 .login-input {
-    -fx-background-color: #ECFDF5;
-    -fx-background-radius: 18;
-    -fx-border-radius: 18;
-    -fx-border-color: transparent;
-    -fx-border-width: 1.2;
-    -fx-padding: 12 14;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 22;
+    -fx-border-radius: 22;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 1.4;
+    -fx-padding: 0 18;
     -fx-font-size: 13px;
     -fx-text-fill: #0F172A;
 }
 
+.login-input-active {
+    -fx-border-color: #60A5FA;
+    -fx-effect: dropshadow(gaussian, rgba(96,165,250,0.18), 14, 0.12, 0, 4);
+}
+
 .login-input:focused {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #22C55E;
-    -fx-effect: dropshadow(gaussian, rgba(34,197,94,0.18), 12, 0.14, 0, 1);
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #60A5FA;
+    -fx-effect: dropshadow(gaussian, rgba(96,165,250,0.18), 14, 0.12, 0, 4);
 }
 
 .login-button {
-    -fx-background-color: #6366F1;
+    -fx-background-color: #0F172A;
     -fx-text-fill: white;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-background-radius: 18;
+    -fx-background-radius: 22;
     -fx-padding: 12 20;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(99,102,241,0.22), 14, 0.14, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.18), 18, 0.14, 0, 8);
 }
 
 .login-button:hover {
-    -fx-background-color: #4F46E5;
+    -fx-background-color: #1E293B;
 }

@@ -22,39 +22,39 @@
             fx:controller="kontrola.LoginController">
 
     <center>
-        <StackPane styleClass="login-layout">
+        <HBox styleClass="login-split-shell">
             <children>
-                <HBox maxWidth="760.0" styleClass="login-card-shell">
+                <StackPane prefWidth="460.0" styleClass="login-showcase">
                     <children>
-                        <StackPane prefWidth="320.0" styleClass="login-showcase">
+                        <Pane mouseTransparent="true" pickOnBounds="false">
                             <children>
-                                <Pane mouseTransparent="true" pickOnBounds="false">
-                                    <children>
-                                        <Region prefWidth="240.0" prefHeight="240.0" translateX="-92.0" translateY="-148.0" styleClass="login-orb login-orb-top" />
-                                        <Region prefWidth="280.0" prefHeight="280.0" translateX="-146.0" translateY="126.0" styleClass="login-orb login-orb-bottom" />
-                                        <Region prefWidth="170.0" prefHeight="170.0" translateX="120.0" translateY="-168.0" styleClass="login-orb login-orb-side" />
-                                    </children>
-                                </Pane>
-
-                                <VBox alignment="CENTER" spacing="12.0">
-                                    <children>
-                                        <ImageView fitHeight="128.0" preserveRatio="true" smooth="true" styleClass="login-logo-image">
-                                            <image>
-                                                <Image url="@../img/NovaFrameLabs-clean.png" />
-                                            </image>
-                                        </ImageView>
-
-                                        <Label text="NovaFrame" styleClass="login-brand">
-                                            <font>
-                                                <Font size="28.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </VBox>
+                                <Region prefWidth="240.0" prefHeight="240.0" translateX="-148.0" translateY="-164.0" styleClass="login-orb login-orb-top" />
+                                <Region prefWidth="280.0" prefHeight="280.0" translateX="-164.0" translateY="184.0" styleClass="login-orb login-orb-bottom" />
+                                <Region prefWidth="170.0" prefHeight="170.0" translateX="118.0" translateY="-154.0" styleClass="login-orb login-orb-side" />
                             </children>
-                        </StackPane>
+                        </Pane>
 
-                        <VBox alignment="CENTER_LEFT" prefWidth="440.0" spacing="16.0" styleClass="login-form-shell">
+                        <VBox alignment="CENTER" spacing="12.0" styleClass="login-brand-shell">
+                            <children>
+                                <ImageView fitHeight="128.0" preserveRatio="true" smooth="true" styleClass="login-logo-image">
+                                    <image>
+                                        <Image url="@../img/NovaFrameLabs-clean.png" />
+                                    </image>
+                                </ImageView>
+
+                                <Label text="NovaFrame" styleClass="login-brand">
+                                    <font>
+                                        <Font size="28.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </StackPane>
+
+                <StackPane prefWidth="460.0" styleClass="login-form-panel">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" maxWidth="290.0" spacing="16.0" styleClass="login-form-shell">
                             <children>
                                 <Label text="Saioa hasi" styleClass="login-form-title" />
 
@@ -62,9 +62,10 @@
                                     <children>
                                         <Label text="Erabiltzailea" styleClass="login-field-label" />
                                         <TextField fx:id="txtErabiltzailea"
-                                                   promptText="Idatzi erabiltzaile izena"
+                                                   promptText=""
                                                    prefWidth="290.0"
-                                                   styleClass="login-input" />
+                                                   prefHeight="48.0"
+                                                   styleClass="login-input login-input-active" />
                                     </children>
                                 </VBox>
 
@@ -74,6 +75,7 @@
                                         <PasswordField fx:id="txtPasahitza"
                                                        promptText="Idatzi pasahitza"
                                                        prefWidth="290.0"
+                                                       prefHeight="48.0"
                                                        styleClass="login-input" />
                                     </children>
                                 </VBox>
@@ -81,14 +83,16 @@
                                 <Button fx:id="btnSaioaHasi"
                                         text="Saioa Hasi"
                                         prefWidth="290.0"
+                                        prefHeight="48.0"
                                         onAction="#saioaHasi"
                                         styleClass="login-button" />
                             </children>
                         </VBox>
                     </children>
-                </HBox>
+
+                </StackPane>
             </children>
-        </StackPane>
+        </HBox>
     </center>
 
 </BorderPane>
