@@ -9,23 +9,63 @@ import java.sql.SQLException;
 
 public class LoginManager {
 
-    public boolean login(Erabiltzailea erabiltzailea) {
+    private String azkenErrorea;
 
-        String sql = "SELECT id FROM langileak " +
-            "WHERE erabiltzaile_izena = ? AND pasahitza = ? AND ezabatua = 0 AND rola_id = 1";
+    public String getAzkenErrorea() {
+        return azkenErrorea;
+    }
+
+    public boolean saioaHasi(Erabiltzailea erabiltzailea) {
+        azkenErrorea = null;
+        String identifikatzailea = erabiltzailea.getErabiltzailea();
+        boolean kodeaDa = false;
+        int langileKodea = 0;
+
+        try {
+            langileKodea = Integer.parseInt(identifikatzailea);
+            kodeaDa = true;
+        } catch (NumberFormatException ignored) {
+        }
+
+        String sql = """
+            SELECT id, izena, abizena, erabiltzaile_izena, langile_kodea, pasahitza, rola_id, ezabatua, chat
+            FROM langileak
+            WHERE %s AND pasahitza = ? AND ezabatua = 0
+        """.formatted(kodeaDa ? "langile_kodea = ?" : "erabiltzaile_izena = ?");
 
         try (Connection conn = Conn.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, erabiltzailea.getErabiltzailea());
+            if (kodeaDa) {
+                stmt.setInt(1, langileKodea);
+            } else {
+                stmt.setString(1, identifikatzailea);
+            }
             stmt.setString(2, erabiltzailea.getPasahitza());
 
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
-
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (!rs.next()) {
+                    azkenErrorea = "Erabiltzailea edo pasahitza okerra";
+                    return false;
+                }
+                erabiltzailea.setId(rs.getInt("id"));
+                erabiltzailea.setIzena(rs.getString("izena"));
+                erabiltzailea.setAbizena(rs.getString("abizena"));
+                erabiltzailea.setErabiltzailea(rs.getString("erabiltzaile_izena"));
+                erabiltzailea.setLangileKodea(rs.getInt("langile_kodea"));
+                erabiltzailea.setPasahitza(rs.getString("pasahitza"));
+                erabiltzailea.setRolaId(rs.getInt("rola_id"));
+                erabiltzailea.setEzabatua(rs.getBoolean("ezabatua"));
+                erabiltzailea.setChat(rs.getBoolean("chat"));
+                return true;
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            azkenErrorea = e.getMessage();
             return false;
         }
+    }
+
+    public boolean login(Erabiltzailea erabiltzailea) {
+        return saioaHasi(erabiltzailea);
     }
 }

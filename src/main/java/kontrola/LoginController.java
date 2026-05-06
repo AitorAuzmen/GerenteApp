@@ -32,13 +32,17 @@ public class LoginController {
         Erabiltzailea user = new Erabiltzailea(erabiltzailea, pasahitza);
         LoginManager loginManager = new LoginManager();
 
-        if (loginManager.login(user)) {
+        if (loginManager.saioaHasi(user)) {
             // Guardar usuario logeado
             erabiltzaileLogeatua = user;
             alertaErakutsi("Saioa ondo hasi da", "Ongi etorri, " + erabiltzailea + "!", Alert.AlertType.INFORMATION);
             leihoNagusiaIreki();
         } else {
-            alertaErakutsi("Errorea", "Erabiltzailea edo pasahitza okerra", Alert.AlertType.ERROR);
+            String errorea = loginManager.getAzkenErrorea();
+            String mezua = (errorea == null || errorea.isBlank())
+                    ? "Erabiltzailea edo pasahitza okerra"
+                    : errorea;
+            alertaErakutsi("Errorea", mezua, Alert.AlertType.ERROR);
         }
     }
 

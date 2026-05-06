@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Conn {
     private static final String HOST = getConfig("DB_HOST", "localhost");
     private static final String PORT = getConfig("DB_PORT", "3306");
-    private static final String DATABASE = getConfig("DB_NAME", "2erronka");
+    private static final String DATABASE = getConfig("DB_NAME", "2erronkab");
     private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE
             + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String USER = getConfig("DB_USER", "root");

@@ -51,7 +51,7 @@ public class ProduktuOsagaiakDB {
     }
 
     public static void gehituProduktukoOsagaia(int produktuaId, ProduktuOsagaia o) {
-        String sql = "INSERT INTO produktuak_has_osagaiak (produktuak_id, osagaiak_id, kantitatea, prezioa) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO produktuak_has_osagaiak (produktuak_id, osagaiak_id, kantitatea) VALUES (?, ?, ?)";
 
         try (Connection c = Conn.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
@@ -59,7 +59,6 @@ public class ProduktuOsagaiakDB {
             ps.setInt(1, produktuaId);
             ps.setInt(2, o.getOsagaiaId());
             ps.setDouble(3, o.getKantitatea());
-            ps.setDouble(4, 0.0);
             ps.executeUpdate();
 
         } catch (SQLException e) { e.printStackTrace(); }

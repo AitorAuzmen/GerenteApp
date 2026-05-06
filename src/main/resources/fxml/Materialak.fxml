@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="kontrola.MaterialakController"
+            prefWidth="500"
+            prefHeight="400">
+
+    <top>
+        <ToolBar>
+            <Label text="Bilatu:"/>
+            <TextField fx:id="txtBuscar" promptText="Materiala izena / hornitzailea"/>
+
+            <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituMateriala"/>
+            <Button fx:id="btnEdit" text="Editatu" onAction="#editatuMateriala"/>
+            <Button fx:id="btnDelete" text="Ezabatu" onAction="#ezabatuMateriala"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <TableView fx:id="table" prefHeight="300">
+            <columns>
+                <TableColumn fx:id="colIzena" text="Izena" prefWidth="210"/>
+                <TableColumn fx:id="colPrezioa" text="Prezioa" prefWidth="90"/>
+                <TableColumn fx:id="colStock" text="Stock" prefWidth="80"/>
+                <TableColumn fx:id="colHornitzailea" text="Hornitzailea" prefWidth="170"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

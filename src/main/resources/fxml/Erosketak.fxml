@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="kontrola.ErosketakController"
+            prefWidth="500"
+            prefHeight="400">
+
+    <top>
+        <ToolBar>
+            <Label text="Bilatu:"/>
+            <TextField fx:id="txtBuscar" promptText="Hornitzailea / elementua"/>
+
+            <Button fx:id="btnAdd" text="Gehitu" onAction="#gehituErosketa"/>
+            <Button fx:id="btnDelete" text="Ezabatu" onAction="#ezabatuErosketa"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <TableView fx:id="table" prefHeight="300">
+            <columns>
+                <TableColumn fx:id="colHornitzailea" text="Hornitzailea" prefWidth="170"/>
+                <TableColumn fx:id="colElementua" text="Elementua" prefWidth="190"/>
+                <TableColumn fx:id="colKantitatea" text="Kantitatea" prefWidth="80"/>
+                <TableColumn fx:id="colPrezioa" text="Prezioa" prefWidth="80"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

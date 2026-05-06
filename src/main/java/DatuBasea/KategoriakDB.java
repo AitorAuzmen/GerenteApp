@@ -11,17 +11,57 @@ import java.util.Map;
 
 public class KategoriakDB {
 
+    private static int motaId(String mota) {
+        if (mota == null) return -1;
+        String normalized = mota.trim().toLowerCase();
+        if (normalized.isEmpty()) return -1;
+        return normalized.hashCode() & 0x7fffffff;
+    }
+
+    private static String lortuMotaById(int id) {
+        String sql = "SELECT DISTINCT mota FROM produktuak WHERE mota IS NOT NULL AND mota <> ''";
+        try (Connection c = Conn.getConnection();
+             Statement st = c.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            while (rs.next()) {
+                String mota = rs.getString("mota");
+                if (motaId(mota) == id) {
+                    return mota;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static int produktuKopuruaMota(String mota) {
+        if (mota == null || mota.isBlank()) return 0;
+        String sql = "SELECT COUNT(*) FROM produktuak WHERE mota = ?";
+        try (Connection c = Conn.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, mota);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     
     public static List<Kategoria> lortuKategoriak() {
         List<Kategoria> lista = new ArrayList<>();
-        String sql = "SELECT * FROM kategoriak";
+        String sql = "SELECT DISTINCT mota FROM produktuak WHERE mota IS NOT NULL AND mota <> '' ORDER BY mota";
 
         try (Connection c = Conn.getConnection();
              Statement st = c.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
-                lista.add(new Kategoria(rs.getInt("id"), rs.getString("izena")));
+                String mota = rs.getString("mota");
+                lista.add(new Kategoria(motaId(mota), mota));
             }
 
         } catch (SQLException e) {
@@ -42,33 +82,20 @@ public class KategoriakDB {
 
     
     public static int gehituKategoria(Kategoria k) {
-        String sql = "INSERT INTO kategoriak (izena) VALUES (?)";
-
-        try (Connection c = Conn.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
-            ps.setString(1, k.getIzena());
-            ps.executeUpdate();
-
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) return rs.getInt(1);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return -1;
+        return motaId(k == null ? null : k.getIzena());
     }
 
     
     public static void eguneratuKategoria(Kategoria k) {
-        String sql = "UPDATE kategoriak SET izena=? WHERE id=?";
+        String motaZaharra = lortuMotaById(k.getId());
+        if (motaZaharra == null) return;
+        String sql = "UPDATE produktuak SET mota = ? WHERE mota = ?";
 
         try (Connection c = Conn.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setString(1, k.getIzena());
-            ps.setInt(2, k.getId());
+            ps.setString(2, motaZaharra);
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -78,46 +105,21 @@ public class KategoriakDB {
 
     
     public static boolean dagoProdukturik(int kategoriaId) {
-        String sql = "SELECT COUNT(*) FROM produktuak WHERE kategoria_id=?";
-        try (Connection c = Conn.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
-            ps.setInt(1, kategoriaId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1) > 0; 
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        String mota = lortuMotaById(kategoriaId);
+        return produktuKopuruaMota(mota) > 0;
     }
 
     
     public static boolean ezabatuKategoria(int id) {
-        if (dagoProdukturik(id)) {
-            return false; 
-        }
-
-        String sql = "DELETE FROM kategoriak WHERE id=?";
-        try (Connection c = Conn.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            return true;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        String mota = lortuMotaById(id);
+        if (mota == null) return true;
+        return produktuKopuruaMota(mota) == 0;
     }
 
     
     public static List<Kategoria> lortuKategoriak(String filtro) {
         List<Kategoria> lista = new ArrayList<>();
-        String sql = "SELECT * FROM kategoriak WHERE izena LIKE ?";
+        String sql = "SELECT DISTINCT mota FROM produktuak WHERE mota LIKE ? ORDER BY mota";
 
         try (Connection c = Conn.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
@@ -126,7 +128,8 @@ public class KategoriakDB {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                lista.add(new Kategoria(rs.getInt("id"), rs.getString("izena")));
+                String mota = rs.getString("mota");
+                lista.add(new Kategoria(motaId(mota), mota));
             }
 
         } catch (SQLException e) {

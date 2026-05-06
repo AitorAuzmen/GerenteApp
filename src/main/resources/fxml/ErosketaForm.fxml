@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="kontrola.ErosketaFormController"
+            prefWidth="380" prefHeight="360">
+    <VBox spacing="10">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <Label text="Hornitzailea:"/>
+        <ComboBox fx:id="cmbHornitzailea" promptText="Hautatu hornitzailea" prefWidth="340"/>
+
+        <Label text="Mota:"/>
+        <HBox spacing="10">
+            <RadioButton fx:id="rbOsagaia" text="Osagaia"/>
+            <RadioButton fx:id="rbMateriala" text="Materiala"/>
+        </HBox>
+
+        <Label text="Osagaia:"/>
+        <ComboBox fx:id="cmbOsagaia" promptText="Hautatu osagaia" prefWidth="340"/>
+
+        <Label text="Materiala:"/>
+        <ComboBox fx:id="cmbMateriala" promptText="Hautatu materiala" prefWidth="340"/>
+
+        <Label text="Prezioa:"/>
+        <TextField fx:id="txtPrezioa" promptText="Sartu prezioa"/>
+
+        <Label text="Kantitatea:"/>
+        <TextField fx:id="txtKantitatea" promptText="Sartu kantitatea"/>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button fx:id="btnGorde" text="Gorde" onAction="#gordeErosketa"/>
+            <Button fx:id="btnUtzi" text="Utzi" onAction="#itxi"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

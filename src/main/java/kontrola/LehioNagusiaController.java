@@ -52,6 +52,16 @@ public class LehioNagusiaController {
         cargarVista("/fxml/Erreserbak.fxml", "Erreserbak");
     }
 
+    @FXML
+    public void kargatuMaterialak() {
+        cargarVista("/fxml/Materialak.fxml", "Materialak");
+    }
+
+    @FXML
+    public void kargatuErosketak() {
+        cargarVista("/fxml/Erosketak.fxml", "Erosketak");
+    }
+
     
     private void cargarVista(String rutaFXML, String nombreVista) {
         System.out.println("Pantalla de " + nombreVista + "...");

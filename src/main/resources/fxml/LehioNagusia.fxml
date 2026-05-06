@@ -39,6 +39,10 @@
                             onAction="#kargatuOsagaiak" styleClass="left-button" />
                         <Button fx:id="btnHornitzaileak" text="Hornitzaileak" prefWidth="180"
                             onAction="#kargatuHornitzaileak" styleClass="left-button" />
+                    <Button fx:id="btnMaterialak" text="Materialak" prefWidth="180"
+                            onAction="#kargatuMaterialak" styleClass="left-button" />
+                    <Button fx:id="btnErosketak" text="Erosketak" prefWidth="180"
+                            onAction="#kargatuErosketak" styleClass="left-button" />
 
                     <!-- Relleno para que la barra llegue abajo -->
                     <Pane VBox.vgrow="ALWAYS" />
