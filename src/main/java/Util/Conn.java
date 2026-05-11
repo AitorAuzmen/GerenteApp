@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conn {
-    private static final String HOST = getConfig("DB_HOST", "localhost");
+    private static final String HOST = getConfig("DB_HOST", "192.168.10.5");
     private static final String PORT = getConfig("DB_PORT", "3306");
-    private static final String DATABASE = getConfig("DB_NAME", "2erronkab");
+    private static final String DATABASE = getConfig("DB_NAME", "2erronkaproba");
     private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE
             + "?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-    private static final String USER = getConfig("DB_USER", "root");
-    private static final String PASSWORD = getConfig("DB_PASSWORD", "1MG2024");
+    private static final String USER = getConfig("DB_USER", "novabite_user");
+    private static final String PASSWORD = getConfig("DB_PASSWORD", "1234");
     
 
     static {
